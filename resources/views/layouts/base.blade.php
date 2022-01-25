@@ -20,7 +20,11 @@
 
         @livewireStyles
     </head>
-    <body class="template-index belle template-index-belle">
+    <body class="belle <?php if (request()->routeIs('home')): ?>
+        template-index template-index-belle
+    <?php elseif (request()->routeIs('products.index')): ?>
+        template-collection
+    <?php endif; ?>">
         <div id="pre-loader">
             <img src="{{ asset('assets/images/loader.gif') }}" alt="Loading..." />
         </div>
@@ -87,7 +91,9 @@
             </div>
             <!--End Top Header-->
             <!--Header-->
-            <div class="header-wrap classicHeader animated d-flex">
+            <div class="header-wrap animated d-flex <?php if (request()->routeIs('home')): ?>
+                classicHeader
+            <?php endif; ?>">
             	<div class="container-fluid">
                     <div class="row align-items-center">
                     	<!--Desktop Logo-->
@@ -105,31 +111,32 @@
                                 </button>
                             </div>
                         	<!--Desktop Menu-->
-                        	<nav class="grid__item" id="AccessibleNav"><!-- for mobile -->
+                        	<nav class="grid__item" id="AccessibleNav">
+                                <!-- for mobile -->
                                 <ul id="siteNav" class="site-nav medium center hidearrow">
                                     <li class="lvl1"><a href="{{ route('home') }}">Home </a></li>
-                                    <li class="lvl1"><a href="#">Shop </a></li>
-                                <li class="lvl1 parent dropdown"><a href="#">Pages <i class="anm anm-angle-down-l"></i></a>
-                                  <ul class="dropdown">
-                                  	<li><a href="cart-variant1.html" class="site-nav">Cart Page </a></li>
-                                    <li><a href="compare-variant1.html" class="site-nav">Compare Product </a></li>
-        							<li><a href="checkout.html" class="site-nav">Checkout</a></li>
-                                    <li><a href="about-us.html" class="site-nav">About Us <span class="lbl nm_label1">New</span> </a></li>
-                                    <li><a href="contact-us.html" class="site-nav">Contact Us</a></li>
-                                    <li><a href="faqs.html" class="site-nav">FAQs</a></li>
-                                    <li><a href="404.html" class="site-nav">404</a></li>
-                                  </ul>
-                                </li>
-                                <li class="lvl1 parent dropdown"><a href="#">Blog <i class="anm anm-angle-down-l"></i></a>
-                                  <ul class="dropdown">
-                                    <li><a href="blog-left-sidebar.html" class="site-nav">Left Sidebar</a></li>
-                                    <li><a href="blog-right-sidebar.html" class="site-nav">Right Sidebar</a></li>
-                                    <li><a href="blog-fullwidth.html" class="site-nav">Fullwidth</a></li>
-                                    <li><a href="blog-grid-view.html" class="site-nav">Gridview</a></li>
-                                    <li><a href="blog-article.html" class="site-nav">Article</a></li>
-                                  </ul>
-                                </li>
-                              </ul>
+                                    <li class="lvl1"><a href="{{ route('products.index') }}">Shop </a></li>
+                                    <li class="lvl1 parent dropdown"><a href="#">Pages <i class="anm anm-angle-down-l"></i></a>
+                                        <ul class="dropdown">
+                                            <li><a href="cart-variant1.html" class="site-nav">Cart Page </a></li>
+                                            <li><a href="compare-variant1.html" class="site-nav">Compare Product </a></li>
+                                            <li><a href="checkout.html" class="site-nav">Checkout</a></li>
+                                            <li><a href="about-us.html" class="site-nav">About Us <span class="lbl nm_label1">New</span> </a></li>
+                                            <li><a href="contact-us.html" class="site-nav">Contact Us</a></li>
+                                            <li><a href="faqs.html" class="site-nav">FAQs</a></li>
+                                            <li><a href="404.html" class="site-nav">404</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="lvl1 parent dropdown"><a href="#">Blog <i class="anm anm-angle-down-l"></i></a>
+                                        <ul class="dropdown">
+                                            <li><a href="blog-left-sidebar.html" class="site-nav">Left Sidebar</a></li>
+                                            <li><a href="blog-right-sidebar.html" class="site-nav">Right Sidebar</a></li>
+                                            <li><a href="blog-fullwidth.html" class="site-nav">Fullwidth</a></li>
+                                            <li><a href="blog-grid-view.html" class="site-nav">Gridview</a></li>
+                                            <li><a href="blog-article.html" class="site-nav">Article</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
                             </nav>
                             <!--End Desktop Menu-->
                         </div>
@@ -222,32 +229,32 @@
             <!--End Header-->
             <!--Mobile Menu-->
             <div class="mobile-nav-wrapper" role="navigation">
-        		<div class="closemobileMenu"><i class="icon anm anm-times-l pull-right"></i> Close Menu</div>
+                <div class="closemobileMenu"><i class="icon anm anm-times-l pull-right"></i> Close Menu</div>
                 <ul id="MobileNav" class="mobile-nav">
-                	<li class="lvl1"><a href="{{ route('home') }}">Home </a></li>
-                	<li class="lvl1"><a href="#">Shop </a></li>
-                	<li class="lvl1 parent megamenu"><a href="about-us.html">Pages <i class="anm anm-plus-l"></i></a>
-                  <ul>
-                  	<li><a href="cart-variant1.html" class="site-nav">Cart Page </a></li>
-                    <li><a href="compare-variant1.html" class="site-nav">Compare Product </a></li>
-        			<li><a href="checkout.html" class="site-nav">Checkout</a></li>
-                    <li><a href="about-us.html" class="site-nav">About Us<span class="lbl nm_label1">New</span></a></li>
-                    <li><a href="contact-us.html" class="site-nav">Contact Us</a></li>
-                    <li><a href="faqs.html" class="site-nav">FAQs</a></li>
-                    <li><a href="404.html" class="site-nav">404</a></li>
-                  </ul>
-                </li>
-                	<li class="lvl1 parent megamenu"><a href="blog-left-sidebar.html">Blog <i class="anm anm-plus-l"></i></a>
-                  <ul>
-                    <li><a href="blog-left-sidebar.html" class="site-nav">Left Sidebar</a></li>
-                    <li><a href="blog-right-sidebar.html" class="site-nav">Right Sidebar</a></li>
-                    <li><a href="blog-fullwidth.html" class="site-nav">Fullwidth</a></li>
-                    <li><a href="blog-grid-view.html" class="site-nav">Gridview</a></li>
-                    <li><a href="blog-article.html" class="site-nav">Article</a></li>
-                  </ul>
-                </li>
-              </ul>
-        	</div>
+                    <li class="lvl1"><a href="{{ route('home') }}">Home </a></li>
+                    <li class="lvl1"><a href="{{ route('products.index') }}">Shop </a></li>
+                    <li class="lvl1 parent megamenu"><a href="about-us.html">Pages <i class="anm anm-plus-l"></i></a>
+                        <ul>
+                            <li><a href="cart-variant1.html" class="site-nav">Cart Page </a></li>
+                            <li><a href="compare-variant1.html" class="site-nav">Compare Product </a></li>
+                            <li><a href="checkout.html" class="site-nav">Checkout</a></li>
+                            <li><a href="about-us.html" class="site-nav">About Us<span class="lbl nm_label1">New</span></a></li>
+                            <li><a href="contact-us.html" class="site-nav">Contact Us</a></li>
+                            <li><a href="faqs.html" class="site-nav">FAQs</a></li>
+                            <li><a href="404.html" class="site-nav">404</a></li>
+                        </ul>
+                    </li>
+                    <li class="lvl1 parent megamenu"><a href="blog-left-sidebar.html">Blog <i class="anm anm-plus-l"></i></a>
+                        <ul>
+                            <li><a href="blog-left-sidebar.html" class="site-nav">Left Sidebar</a></li>
+                            <li><a href="blog-right-sidebar.html" class="site-nav">Right Sidebar</a></li>
+                            <li><a href="blog-fullwidth.html" class="site-nav">Fullwidth</a></li>
+                            <li><a href="blog-grid-view.html" class="site-nav">Gridview</a></li>
+                            <li><a href="blog-article.html" class="site-nav">Article</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         	<!--End Mobile Menu-->
 
             <!--Body Content-->
