@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Frontend\HomePage;
+use App\Http\Livewire\Frontend\Product\IndexPage;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('/', HomePage::class)->name('home');
+
+Route::prefix('products')->name('products.')->group(function ()
+{
+    Route::get('/', IndexPage::class)->name('index');
+});
