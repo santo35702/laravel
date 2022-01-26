@@ -8,6 +8,6 @@ class IndexPage extends Component
 {
     public function render()
     {
-        return view('livewire.frontend.cart.index-page');
+        return view('livewire.frontend.cart.index-page')->layout('layouts.base');
     }
 }

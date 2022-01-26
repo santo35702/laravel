@@ -8,6 +8,6 @@ class NotFoundPage extends Component
 {
     public function render()
     {
-        return view('livewire.frontend.not-found-page');
+        return view('livewire.frontend.not-found-page')->layout('layouts.base');
     }
 }

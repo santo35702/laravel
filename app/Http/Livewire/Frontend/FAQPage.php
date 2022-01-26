@@ -8,6 +8,6 @@ class FAQPage extends Component
 {
     public function render()
     {
-        return view('livewire.frontend.f-a-q-page');
+        return view('livewire.frontend.f-a-q-page')->layout('layouts.base');
     }
 }
