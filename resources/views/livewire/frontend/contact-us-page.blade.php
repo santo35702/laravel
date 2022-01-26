@@ -1,3 +1,3 @@
-<div>
-    {{-- Because she competes with no one, no one can compete with her. --}}
+<div id="page-content">
+    <h1>ContactUs Page content.</h1>
 </div>

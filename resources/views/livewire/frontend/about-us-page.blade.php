@@ -1,3 +1,3 @@
-<div>
-    {{-- Success is as dangerous as failure. --}}
+<div id="page-content">
+    <h1>AboutUs Page content.</h1>
 </div>

@@ -1,3 +1,3 @@
-<div>
-    {{-- The whole world belongs to you. --}}
+<div id="page-content">
+    <h1>Compare Page content.</h1>
 </div>

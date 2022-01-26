@@ -1,3 +1,3 @@
-<div>
-    {{-- In work, do what you enjoy. --}}
+<div id="page-content">
+    <h1>Cart Page content.</h1>
 </div>
