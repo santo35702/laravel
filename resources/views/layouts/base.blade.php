@@ -82,7 +82,7 @@
                                             <li><a href="{{ route('register') }}">Create Account</a></li>
                                         <?php endif; ?>
                                     @endauth
-                                    <li><a href="wishlist.html">Wishlist</a></li>
+                                    <li><a href="{{ route('wishlist') }}">Wishlist</a></li>
                                 </ul>
                             <?php endif; ?>
                         </div>
@@ -115,16 +115,13 @@
                                 <!-- for mobile -->
                                 <ul id="siteNav" class="site-nav medium center hidearrow">
                                     <li class="lvl1"><a href="{{ route('home') }}">Home </a></li>
+                                    <li class="lvl1"><a href="{{ route('about') }}">About Us </a></li>
                                     <li class="lvl1"><a href="{{ route('products.index') }}">Shop </a></li>
                                     <li class="lvl1 parent dropdown"><a href="#">Pages <i class="anm anm-angle-down-l"></i></a>
                                         <ul class="dropdown">
-                                            <li><a href="cart-variant1.html" class="site-nav">Cart Page </a></li>
-                                            <li><a href="compare-variant1.html" class="site-nav">Compare Product </a></li>
-                                            <li><a href="checkout.html" class="site-nav">Checkout</a></li>
-                                            <li><a href="about-us.html" class="site-nav">About Us <span class="lbl nm_label1">New</span> </a></li>
-                                            <li><a href="contact-us.html" class="site-nav">Contact Us</a></li>
-                                            <li><a href="faqs.html" class="site-nav">FAQs</a></li>
-                                            <li><a href="404.html" class="site-nav">404</a></li>
+                                            <li><a href="{{ route('compare') }}" class="site-nav">Compare Product </a></li>
+                                            <li><a href="{{ route('faq') }}" class="site-nav">FAQs</a></li>
+                                            <li><a href="{{ route('not_found') }}" class="site-nav">404</a></li>
                                         </ul>
                                     </li>
                                     <li class="lvl1 parent dropdown"><a href="#">Blog <i class="anm anm-angle-down-l"></i></a>
@@ -136,6 +133,7 @@
                                             <li><a href="blog-article.html" class="site-nav">Article</a></li>
                                         </ul>
                                     </li>
+                                    <li class="lvl1"><a href="{{ route('contact') }}">Contact Us </a></li>
                                 </ul>
                             </nav>
                             <!--End Desktop Menu-->
@@ -212,8 +210,8 @@
                                         	<span class="label">Cart Subtotal:</span><span class="product-price"><span class="money">$748.00</span></span>
                                         </div>
                                          <div class="buttonSet text-center">
-                                            <a href="cart.html" class="btn btn-secondary btn--small">View Cart</a>
-                                            <a href="checkout.html" class="btn btn-secondary btn--small">Checkout</a>
+                                            <a href="{{ route('cart') }}" class="btn btn-secondary btn--small">View Cart</a>
+                                            <a href="{{ route('checkout') }}" class="btn btn-secondary btn--small">Checkout</a>
                                         </div>
                                     </div>
                                 </div>
@@ -232,16 +230,13 @@
                 <div class="closemobileMenu"><i class="icon anm anm-times-l pull-right"></i> Close Menu</div>
                 <ul id="MobileNav" class="mobile-nav">
                     <li class="lvl1"><a href="{{ route('home') }}">Home </a></li>
+                    <li class="lvl1"><a href="{{ route('about') }}">About Us </a></li>
                     <li class="lvl1"><a href="{{ route('products.index') }}">Shop </a></li>
                     <li class="lvl1 parent megamenu"><a href="about-us.html">Pages <i class="anm anm-plus-l"></i></a>
                         <ul>
-                            <li><a href="cart-variant1.html" class="site-nav">Cart Page </a></li>
-                            <li><a href="compare-variant1.html" class="site-nav">Compare Product </a></li>
-                            <li><a href="checkout.html" class="site-nav">Checkout</a></li>
-                            <li><a href="about-us.html" class="site-nav">About Us<span class="lbl nm_label1">New</span></a></li>
-                            <li><a href="contact-us.html" class="site-nav">Contact Us</a></li>
-                            <li><a href="faqs.html" class="site-nav">FAQs</a></li>
-                            <li><a href="404.html" class="site-nav">404</a></li>
+                            <li><a href="{{ route('compare') }}" class="site-nav">Compare Product </a></li>
+                            <li><a href="{{ route('faq') }}" class="site-nav">FAQs</a></li>
+                            <li><a href="{{ route('not_found') }}" class="site-nav">404</a></li>
                         </ul>
                     </li>
                     <li class="lvl1 parent megamenu"><a href="blog-left-sidebar.html">Blog <i class="anm anm-plus-l"></i></a>
@@ -253,6 +248,7 @@
                             <li><a href="blog-article.html" class="site-nav">Article</a></li>
                         </ul>
                     </li>
+                    <li class="lvl1"><a href="{{ route('contact') }}">Contact Us </a></li>
                 </ul>
             </div>
         	<!--End Mobile Menu-->
