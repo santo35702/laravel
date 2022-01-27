@@ -140,12 +140,12 @@
                                     <div class="grid__item">
                                         <div class="mini-list-item">
                                             <div class="mini-view_image">
-                                                <a class="grid-view-item__link" href="#">
+                                                <a class="grid-view-item__link" href="{{ route('products.details', $key->slug) }}">
                                                     <img class="grid-view-item__image" src="{{ asset('assets/images/product-images/' . $key->image) }}" alt="{{ $key->title }}" />
                                                 </a>
                                             </div>
                                             <div class="details">
-                                                <a class="grid-view-item__title text-capitalize" href="#">{{ $key->title }}</a>
+                                                <a class="grid-view-item__title text-capitalize" href="{{ route('products.details', $key->slug) }}">{{ $key->title }}</a>
                                                 <div class="grid-view-item__meta">
                                                     <span class="product-price__price">
                                                         <span class="money">${{ $key->regular_price }}</span>
@@ -287,7 +287,7 @@
                                         <!-- start product image -->
                                         <div class="product-image">
                                             <!-- start product image -->
-                                            <a href="#">
+                                            <a href="{{ route('products.details', $key->slug) }}">
                                                 <!-- image -->
                                                 <img class="primary blur-up lazyload" data-src="{{ asset('assets/images/product-images/' . $key->image) }}" src="{{ asset('assets/images/product-images/' . $key->image) }}" alt="{{ $key->title }}" title="{{ $key->title }}">
                                                 <!-- End image -->
@@ -330,7 +330,7 @@
                                         <div class="product-details text-center">
                                             <!-- product name -->
                                             <div class="product-name text-capitalize">
-                                                <a href="#">{{ $key->title }}</a>
+                                                <a href="{{ route('products.details', $key->slug) }}">{{ $key->title }}</a>
                                             </div>
                                             <!-- End product name -->
                                             <!-- product price -->
