@@ -19,7 +19,7 @@
 
         @livewireStyles
     </head>
-    <body class="hold-transition @if (request()->routeIs('login'))
+    <body class="hold-transition @if (request()->routeIs('login') || request()->routeIs('password.request'))
         login-page
     @elseif (request()->routeIs('register'))
         register-page
