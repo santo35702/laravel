@@ -24,6 +24,10 @@
         template-index template-index-belle
     <?php elseif (request()->routeIs('products.index')): ?>
         template-collection
+    <?php elseif (request()->routeIs('products.details')): ?>
+        template-product
+    <?php elseif (request()->routeIs('about')): ?>
+        page-template
     <?php endif; ?>">
         <div id="pre-loader">
             <img src="{{ asset('assets/images/loader.gif') }}" alt="Loading..." />
