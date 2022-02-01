@@ -3,11 +3,21 @@
 namespace App\Http\Livewire\Frontend\Product;
 
 use Livewire\Component;
+use App\Models\Product;
 
 class DetailsPage extends Component
 {
+    public $slug;
+
+    public function mount($slug)
+    {
+        $this->slug = $slug;
+    }
+
     public function render()
     {
-        return view('livewire.frontend.product.details-page')->layout('layouts.base');
+        $product = Product::where('slug', $this->slug)->first();
+        $related_product = Product::where('category_id', $product->category_id)->inRandomOrder()->limit(10)->get();
+        return view('livewire.frontend.product.details-page', ['product' => $product, 'related_product' => $related_product])->layout('layouts.base');
     }
 }
