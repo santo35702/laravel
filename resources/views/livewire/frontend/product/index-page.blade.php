@@ -237,7 +237,7 @@
                                     <a href="{{ route('products.index') }}" title="Grid View" class="change-view change-view--active">
                                         <img src="{{ asset('assets/images/grid.jpg') }}" alt="Grid" />
                                     </a>
-                                    <a href="{{ route('products.index') }}" title="List View" class="change-view">
+                                    <a href="{{ route('products.list.index') }}" title="List View" class="change-view">
                                         <img src="{{ asset('assets/images/list.jpg') }}" alt="List" />
                                     </a>
                                 </div>
