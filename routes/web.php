@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Frontend\HomePage;
 use App\Http\Livewire\Frontend\Product\IndexPage;
 use App\Http\Livewire\Frontend\Product\ListPage;
+use App\Http\Livewire\Frontend\Product\ByCategoryPage;
+use App\Http\Livewire\Frontend\Product\ListByCategoryPage;
 use App\Http\Livewire\Frontend\Product\DetailsPage;
 use App\Http\Livewire\Frontend\AboutUsPage;
 use App\Http\Livewire\Frontend\ComparePage;
