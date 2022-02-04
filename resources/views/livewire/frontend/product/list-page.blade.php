@@ -329,10 +329,9 @@
                         <!--End ListView Item-->
                     </div>
                 </div>
-                <div class="infinitpaginOuter">
-                    <div class="infinitpagin">
-                        <a href="#" class="btn loadMore">Load More</a>
-                    </div>
+                <div class="pagination d-flex justify-content-between">
+                    <p>Showing Total {{ $products->firstItem() }} Items to {{ $products->lastItem() }} Items from {{ $products->total() }} Result.</p>
+                    {{ $products->links() }}
                 </div>
             </div>
             <!--End Main Content-->
