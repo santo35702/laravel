@@ -79,7 +79,14 @@
                             	<span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
                                 <ul class="customer-links list-inline">
                                     @auth
-                                        <li>Login success</li>
+                                        <li>
+                                            <form method="POST" action="{{ route('logout') }}">
+                                                @csrf
+                                                <a href="{{ route('logout') }}"
+                                                         onclick="event.preventDefault();
+                                                                this.closest('form').submit();">Log Out</a>
+                                            </form>
+                                        </li>
                                     @else
                                         <li><a href="{{ route('login') }}">Login</a></li>
                                         <?php if (Route::has('register')): ?>
