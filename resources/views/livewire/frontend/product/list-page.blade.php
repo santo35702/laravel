@@ -25,7 +25,7 @@
                             <div class="widget-content">
                                 <ul class="sidebar_categories text-capitalize">
                                     <?php foreach (DB::table('categories')->orderBy('name', 'asc')->get() as $key): ?>
-                                        <li class="lvl-1"><a href="#;" class="site-nav">{{ $key->name }}</a></li>
+                                        <li class="lvl-1"><a href="{{ route('products.list.by_category', $key->slug) }}" class="site-nav">{{ $key->name }}</a></li>
                                     <?php endforeach; ?>
                                 </ul>
                             </div>
