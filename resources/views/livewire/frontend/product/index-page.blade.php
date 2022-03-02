@@ -25,7 +25,7 @@
                             <div class="widget-content">
                                 <ul class="sidebar_categories text-capitalize">
                                     <?php foreach (DB::table('categories')->orderBy('name', 'asc')->get() as $key): ?>
-                                        <li class="lvl-1"><a href="#;" class="site-nav">{{ $key->name }}</a></li>
+                                        <li class="lvl-1"><a href="{{ route('products.by_category', $key->slug) }}" class="site-nav">{{ $key->name }}</a></li>
                                     <?php endforeach; ?>
                                 </ul>
                             </div>
@@ -280,8 +280,8 @@
                     </div>
                     <!--End Toolbar-->
                     <div class="grid-products grid--view-items">
-                        <div class="row">
-                            <?php if ($products->count() > 0): ?>
+                        <?php if ($products->count() > 0): ?>
+                            <div class="row">
                                 <?php foreach ($products as $key): ?>
                                     <div class="col-6 col-sm-6 col-md-4 col-lg-3 item grid-view-item--sold-out">
                                         <!-- start product image -->
@@ -365,19 +365,19 @@
                                         <!-- countdown end -->
                                     </div>
                                 <?php endforeach; ?>
-                            <?php else: ?>
-                                <div class="jumbotron d-flex justify-content-between">
-                                    <div>
-                                        <h1 class="display-4">Sorry...!!</h1>
-                                        <p class="lead">Currently no products matches.</p>
-                                        <hr class="my-4">
-                                        <p>You can check our all products, and you may love it.</p>
-                                        <a class="btn btn-primary btn-lg" href="{{ route('products.index') }}" role="button">Click here</a>
-                                    </div>
-                                    <img src="{{ asset('assets/images/cart.png')}}" alt="Cart logo">
+                            </div>
+                        <?php else: ?>
+                            <div class="jumbotron d-flex justify-content-between">
+                                <div>
+                                    <h1 class="display-4">Sorry...!!</h1>
+                                    <p class="lead">Currently no products matches.</p>
+                                    <hr class="my-4">
+                                    <p>You can check our all products, and you may love it.</p>
+                                    <a class="btn btn-primary btn-lg" href="{{ route('products.index') }}" role="button">Click here</a>
                                 </div>
-                            <?php endif; ?>
-                        </div>
+                                <img src="{{ asset('assets/images/cart.png')}}" alt="Cart logo">
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <hr class="clear">
