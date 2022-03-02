@@ -45,8 +45,10 @@ Route::prefix('products')->name('products.')->group(function ()
     Route::prefix('list')->name('list.')->group(function ()
     {
         Route::get('/', ListPage::class)->name('index');
+        Route::get('/categories/{slug}', ListByCategoryPage::class)->name('by_category');
     });
     Route::get('/{slug}', DetailsPage::class)->name('details');
+    Route::get('/categories/{slug}', ByCategoryPage::class)->name('by_category');
 });
 
 Route::get('/faqs', FAQPage::class)->name('faq');
