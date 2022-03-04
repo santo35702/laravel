@@ -16,6 +16,7 @@ use App\Http\Livewire\Frontend\Cart\IndexPage as CartPage;
 use App\Http\Livewire\Frontend\CheckoutPage;
 use App\Http\Livewire\Frontend\Wishlist\IndexPage as WishlistPage;
 
+use App\Http\Livewire\Admin\AdminDashboard;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,9 +32,9 @@ use App\Http\Livewire\Frontend\Wishlist\IndexPage as WishlistPage;
 //     return view('welcome');
 // });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
 
 Route::get('/', HomePage::class)->name('home');
 
@@ -64,3 +65,15 @@ Route::get('/wishlist', WishlistPage::class)->name('wishlist');
 Route::get('/contact-us', ContactUsPage::class)->name('contact');
 
 Route::get('/404', NotFoundPage::class)->name('not_found');
+
+// For User / Customer Route__
+Route::middleware(['auth:sanctum', 'verified'])->prefix('/users')->name('users.')->group(function ()
+{
+    // code...
+});
+
+// For Admin user Route__
+Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->prefix('admin')->name('admin.')->group(function ()
+{
+    Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
+});

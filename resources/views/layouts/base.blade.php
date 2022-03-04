@@ -144,6 +144,18 @@
                                             <li><a href="blog-article.html" class="site-nav">Article</a></li>
                                         </ul>
                                     </li>
+                                    @auth
+                                        <li class="lvl1 parent dropdown"><a href="#">My Account <i class="anm anm-angle-down-l"></i></a>
+                                            <ul class="dropdown">
+                                                <?php if (Auth::user()->utype == "ADM"): ?>
+                                                    <li><a href="{{ route(admin.dashboard) }}" class="site-nav">Dashboard</a></li>
+                                                <?php else: ?>
+                                                    <li><a href="" class="site-nav">Dashboard</a></li>
+                                                <?php endif; ?>
+                                                <li><a href="" class="site-nav">Logout</a></li>
+                                            </ul>
+                                        </li>
+                                    @endauth
                                     <li class="lvl1"><a href="{{ route('contact') }}">Contact Us </a></li>
                                 </ul>
                             </nav>
