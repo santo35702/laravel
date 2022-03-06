@@ -148,11 +148,18 @@
                                         <li class="lvl1 parent dropdown"><a href="#">My Account <i class="anm anm-angle-down-l"></i></a>
                                             <ul class="dropdown">
                                                 <?php if (Auth::user()->utype == "ADM"): ?>
-                                                    <li><a href="{{ route(admin.dashboard) }}" class="site-nav">Dashboard</a></li>
+                                                    <li><a href="{{ route('admin.dashboard') }}" class="site-nav">Dashboard</a></li>
                                                 <?php else: ?>
                                                     <li><a href="" class="site-nav">Dashboard</a></li>
                                                 <?php endif; ?>
-                                                <li><a href="" class="site-nav">Logout</a></li>
+                                                <li>
+                                                    <form method="POST" action="{{ route('logout') }}">
+                                                        @csrf
+                                                        <a href="{{ route('logout') }}"
+                                                                 onclick="event.preventDefault();
+                                                                        this.closest('form').submit();" class="site-nav">Logout</a>
+                                                    </form>
+                                                </li>
                                             </ul>
                                         </li>
                                     @endauth
