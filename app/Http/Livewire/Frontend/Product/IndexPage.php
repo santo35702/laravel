@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Frontend\Product;
 
 use Livewire\Component;
 use App\Models\Product;
+use Illuminate\Http\Request;
+use Cart;
 
 class IndexPage extends Component
 {
@@ -14,6 +16,13 @@ class IndexPage extends Component
     {
         $this->sorting = 'default';
         $this->pagesize = 20;
+    }
+
+    public function AddToCart(Request $request, $id, $title, $price)
+    {
+        Cart::instance('cart')->add($id, $title, 1, $price)->associate('App\Models\Product');
+        $request->session()->flash('status', 'Product Add to Cart successfully...!!');
+        return redirect()->route('cart');
     }
 
     public function render()

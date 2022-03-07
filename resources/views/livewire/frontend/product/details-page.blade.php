@@ -143,9 +143,7 @@
                                     </div>
                                 </div>
                                 <div class="product-form__item--submit">
-                                    <button type="button" name="add" class="btn product-form__cart-submit">
-                                        <span>Add to cart</span>
-                                    </button>
+                                    <a href="#" class="btn product-form__cart-submit" wire:click.prevent="AddToCart({{ $product->id }}, '{{ $product->title }}', {{ $product->regular_price }})">Add To Cart</a>
                                 </div>
                                 <div class="shopify-payment-button" data-shopify="payment-button">
                                     <button type="button" class="shopify-payment-button__button shopify-payment-button__button--unbranded">Buy it now</button>
