@@ -16,6 +16,11 @@
     </head>
     <body class="hold-transition sidebar-mini">
         <div class="wrapper">
+            <!-- Preloader -->
+            <div class="preloader flex-column justify-content-center align-items-center">
+                <img class="animation__shake" src="{{ asset('admin/dist/img/AdminLTELogo.png') }}" alt="Loading..." height="60" width="60">
+            </div>
+
             <!-- Navbar -->
             <nav class="main-header navbar navbar-expand navbar-white navbar-light">
                 <!-- Left navbar links -->
@@ -123,6 +128,7 @@
                                     </p>
                                 </a>
                             </li>
+                             <li class="nav-header">SESSION</li>
                             <li class="nav-item">
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
