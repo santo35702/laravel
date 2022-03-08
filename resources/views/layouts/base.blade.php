@@ -181,69 +181,53 @@
                         	<div class="site-cart">
                             	<a href="#;" class="site-header__cart" title="Cart">
                                 	<i class="icon anm anm-bag-l"></i>
-                                    <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">2</span>
+                                    <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">{{ Cart::instance('cart')->count() > 0 ? Cart::instance('cart')->count() : '0' }}</span>
                                 </a>
                                 <!--Minicart Popup-->
                                 <div id="header-cart" class="block block-cart">
-                                	<ul class="mini-products-list">
-                                        <li class="item">
-                                        	<a class="product-image" href="#">
-                                            	<img src="assets/images/product-images/cape-dress-1.jpg" alt="3/4 Sleeve Kimono Dress" title="" />
-                                            </a>
-                                            <div class="product-details">
-                                            	<a href="#" class="remove"><i class="anm anm-times-l" aria-hidden="true"></i></a>
-                                                <a href="#" class="edit-i remove"><i class="anm anm-edit" aria-hidden="true"></i></a>
-                                                <a class="pName" href="cart.html">Sleeve Kimono Dress</a>
-                                                <div class="variant-cart">Black / XL</div>
-                                                <div class="wrapQtyBtn">
-                                                    <div class="qtyField">
-                                                    	<span class="label">Qty:</span>
-                                                        <a class="qtyBtn minus" href="javascript:void(0);"><i class="fa anm anm-minus-r" aria-hidden="true"></i></a>
-                                                        <input type="text" id="Quantity" name="quantity" value="1" class="product-form__input qty">
-                                                        <a class="qtyBtn plus" href="javascript:void(0);"><i class="fa anm anm-plus-r" aria-hidden="true"></i></a>
-                                                    </div>
-                                                </div>
-                                                <div class="priceRow">
-                                                	<div class="product-price">
-                                                    	<span class="money">$59.00</span>
-                                                    </div>
-                                                 </div>
-        									</div>
-                                        </li>
-                                        <li class="item">
-                                        	<a class="product-image" href="#">
-                                            	<img src="assets/images/product-images/cape-dress-2.jpg" alt="Elastic Waist Dress - Black / Small" title="" />
-                                            </a>
-                                            <div class="product-details">
-                                            	<a href="#" class="remove"><i class="anm anm-times-l" aria-hidden="true"></i></a>
-                                                <a href="#" class="edit-i remove"><i class="anm anm-edit" aria-hidden="true"></i></a>
-                                                <a class="pName" href="cart.html">Elastic Waist Dress</a>
-                                                <div class="variant-cart">Gray / XXL</div>
-                                                <div class="wrapQtyBtn">
-                                                    <div class="qtyField">
-                                                    	<span class="label">Qty:</span>
-                                                        <a class="qtyBtn minus" href="javascript:void(0);"><i class="fa anm anm-minus-r" aria-hidden="true"></i></a>
-                                                        <input type="text" id="Quantity" name="quantity" value="1" class="product-form__input qty">
-                                                        <a class="qtyBtn plus" href="javascript:void(0);"><i class="fa anm anm-plus-r" aria-hidden="true"></i></a>
-                                                    </div>
-                                                </div>
-                                               	<div class="priceRow">
-                                                    <div class="product-price">
-                                                        <span class="money">$99.00</span>
-                                                    </div>
-                                                </div>
+                                    <?php if (Cart::instance('cart')->count() > 0): ?>
+                                        <ul class="mini-products-list">
+                                            <?php foreach (Cart::instance('cart')->content() as $key): ?>
+                                                <li class="item">
+                                                	<a class="product-image" href="{{ route('products.details', $key->model->slug) }}">
+                                                    	<img src="{{ asset('assets/images/product-images/' . $key->model->image) }}" alt="{{ $key->model->title }}" title="{{ $key->model->title }}" />
+                                                    </a>
+                                                    <div class="product-details">
+                                                    	<a href="#" class="remove"><i class="anm anm-times-l" aria-hidden="true"></i></a>
+                                                        <a href="#" class="edit-i remove"><i class="anm anm-edit" aria-hidden="true"></i></a>
+                                                        <a class="pName" href="{{ route('products.details', $key->model->slug) }}">{{ $key->model->title }}</a>
+                                                        <div class="variant-cart">Black / XL</div>
+                                                        <div class="wrapQtyBtn">
+                                                            <div class="qtyField">
+                                                            	<span class="label">Qty:</span>
+                                                                <a class="qtyBtn minus" href="javascript:void(0);"><i class="fa anm anm-minus-r" aria-hidden="true"></i></a>
+                                                                <input type="text" id="Quantity" name="quantity" value="{{ $key->qty }}" class="product-form__input qty">
+                                                                <a class="qtyBtn plus" href="javascript:void(0);"><i class="fa anm anm-plus-r" aria-hidden="true"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="priceRow">
+                                                        	<div class="product-price">
+                                                            	<span class="money">${{ $key->subtotal }}</span>
+                                                            </div>
+                                                         </div>
+                									</div>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                        <div class="total">
+                                        	<div class="total-in">
+                                            	<span class="label">Cart Subtotal:</span><span class="product-price"><span class="money">${{ Cart::instance('cart')->subtotal() }}</span></span>
                                             </div>
-                                        </li>
-                                    </ul>
-                                    <div class="total">
-                                    	<div class="total-in">
-                                        	<span class="label">Cart Subtotal:</span><span class="product-price"><span class="money">$748.00</span></span>
+                                             <div class="buttonSet text-center">
+                                                <a href="{{ route('cart') }}" class="btn btn-secondary btn--small">View Cart</a>
+                                                <a href="{{ route('checkout') }}" class="btn btn-secondary btn--small">Checkout</a>
+                                            </div>
                                         </div>
-                                         <div class="buttonSet text-center">
-                                            <a href="{{ route('cart') }}" class="btn btn-secondary btn--small">View Cart</a>
-                                            <a href="{{ route('checkout') }}" class="btn btn-secondary btn--small">Checkout</a>
-                                        </div>
-                                    </div>
+                                    <?php else: ?>
+                                        <ul class="mini-products-list d-flex justify-content-center align-items-center">
+                                            <h3>Sorry...!! You have no Items in Cart</h3>
+                                        </ul>
+                                    <?php endif; ?>
                                 </div>
                                 <!--EndMinicart Popup-->
                             </div>
@@ -262,7 +246,7 @@
                     <li class="lvl1"><a href="{{ route('home') }}">Home </a></li>
                     <li class="lvl1"><a href="{{ route('about') }}">About Us </a></li>
                     <li class="lvl1"><a href="{{ route('products.index') }}">Shop </a></li>
-                    <li class="lvl1 parent megamenu"><a href="about-us.html">Pages <i class="anm anm-plus-l"></i></a>
+                    <li class="lvl1 parent megamenu"><a href="#">Pages <i class="anm anm-plus-l"></i></a>
                         <ul>
                             <li><a href="{{ route('compare') }}" class="site-nav">Compare Product </a></li>
                             <li><a href="{{ route('faq') }}" class="site-nav">FAQs</a></li>
@@ -300,7 +284,7 @@
                                         </div>
                                         <form action="#" method="post">
                                             <div class="input-group">
-                                                <input type="email" class="input-group__field newsletter__input" name="EMAIL" value="" placeholder="Email address" required="">
+                                                <input type="email" class="input-group__field newsletter__input" name="email" value="" placeholder="Email address" required="">
                                                 <span class="input-group__btn">
                                                     <button type="submit" class="btn newsletter__submit" name="commit" id="Subscribe"><span class="newsletter__submit-text--large">Subscribe</span></button>
                                                 </span>
@@ -343,19 +327,19 @@
                                 <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
                                 	<h4 class="h4">Informations</h4>
                                     <ul>
-                                    	<li><a href="#">About us</a></li>
+                                    	<li><a href="{{ route('about') }}">About us</a></li>
                                         <li><a href="#">Careers</a></li>
                                         <li><a href="#">Privacy policy</a></li>
                                         <li><a href="#">Terms &amp; condition</a></li>
-                                        <li><a href="#">My Account</a></li>
+                                        <li><a href="{{ route('users.dashboard') }}">My Account</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
                                 	<h4 class="h4">Customer Services</h4>
                                     <ul>
                                     	<li><a href="#">Request Personal Data</a></li>
-                                        <li><a href="#">FAQ's</a></li>
-                                        <li><a href="#">Contact Us</a></li>
+                                        <li><a href="{{ route('faq') }}">FAQ's</a></li>
+                                        <li><a href="{{ route('contact') }}">Contact Us</a></li>
                                         <li><a href="#">Orders and Returns</a></li>
                                         <li><a href="#">Support Center</a></li>
                                     </ul>
@@ -365,7 +349,7 @@
                                     <ul class="addressFooter">
                                     	<li><i class="icon anm anm-map-marker-al"></i><p>55 Gallaxy Enque,<br>2568 steet, 23568 NY</p></li>
                                         <li class="phone"><i class="icon anm anm-phone-s"></i><p>(440) 000 000 0000</p></li>
-                                        <li class="email"><i class="icon anm anm-envelope-l"></i><p>sales@yousite.com</p></li>
+                                        <li class="email"><i class="icon anm anm-envelope-l"></i><p>santo35702@gmail.com</p></li>
                                     </ul>
                                 </div>
                             </div>
@@ -375,7 +359,7 @@
                         <div class="footer-bottom">
                         	<div class="row">
                             	<!--Footer Copyright-->
-        	                	<div class="col-12 col-sm-12 col-md-6 col-lg-6 order-1 order-md-0 order-lg-0 order-sm-1 copyright text-sm-center text-md-left text-lg-left"><span></span> <a href="templateshub.net">Templates Hub</a></div>
+        	                	<div class="col-12 col-sm-12 col-md-6 col-lg-6 order-1 order-md-0 order-lg-0 order-sm-1 copyright text-sm-center text-md-left text-lg-left"><span></span> <a href="mailto:santo35702@gmail.com">MD: Suvo</a></div>
                                 <!--End Footer Copyright-->
                                 <!--Footer Payment Icon-->
                                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 order-0 order-md-1 order-lg-1 order-sm-0 payment-icons text-right text-md-center">
@@ -517,178 +501,182 @@
             <!--End Quick View popup-->
 
             <!-- Newsletter Popup -->
-        	<div class="newsletter-wrap" id="popup-container">
-                <div id="popup-window">
-                    <a class="btn closepopup"><i class="icon icon anm anm-times-l"></i></a>
-                    <!-- Modal content-->
-                    <div class="display-table splash-bg">
-                        <div class="display-table-cell width40"><img src="{{ asset('assets/images/newsletter-img.jpg') }}" alt="Join Our Mailing List" title="Join Our Mailing List" /> </div>
-                        <div class="display-table-cell width60 text-center">
-                            <div class="newsletter-left">
-                                <h2>Join Our Mailing List</h2>
-                                <p>Sign Up for our exclusive email list and be the first to know about new products and special offers</p>
-                                <form action="#" method="post">
-                                    <div class="input-group">
-                                        <input type="email" class="input-group__field newsletter__input" name="EMAIL" value="" placeholder="Email address" required="">
-                                        <span class="input-group__btn">
-                                            <button type="submit" class="btn newsletter__submit" name="commit" id="subscribeBtn"> <span class="newsletter__submit-text--large">Subscribe</span> </button>
-                                        </span>
-                                    </div>
-                                </form>
-                                <ul class="list--inline site-footer__social-icons social-icons">
-                                    <li><a class="social-icons__link" href="#" title="Facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a></li>
-                                    <li><a class="social-icons__link" href="#" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                    <li><a class="social-icons__link" href="#" title="Pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                                    <li><a class="social-icons__link" href="#" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                                    <li><a class="social-icons__link" href="#" title="YouTube"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
-                                    <li><a class="social-icons__link" href="#" title="Vimeo"><i class="fa fa-vimeo" aria-hidden="true"></i></a></li>
-                                </ul>
+            <?php if (request()->routeIs('home')): ?>
+                <div class="newsletter-wrap" id="popup-container">
+                    <div id="popup-window">
+                        <a class="btn closepopup"><i class="icon icon anm anm-times-l"></i></a>
+                        <!-- Modal content-->
+                        <div class="display-table splash-bg">
+                            <div class="display-table-cell width40"><img src="{{ asset('assets/images/newsletter-img.jpg') }}" alt="Join Our Mailing List" title="Join Our Mailing List" /> </div>
+                            <div class="display-table-cell width60 text-center">
+                                <div class="newsletter-left">
+                                    <h2>Join Our Mailing List</h2>
+                                    <p>Sign Up for our exclusive email list and be the first to know about new products and special offers</p>
+                                    <form action="#" method="post">
+                                        <div class="input-group">
+                                            <input type="email" class="input-group__field newsletter__input" name="EMAIL" value="" placeholder="Email address" required="">
+                                            <span class="input-group__btn">
+                                                <button type="submit" class="btn newsletter__submit" name="commit" id="subscribeBtn"> <span class="newsletter__submit-text--large">Subscribe</span> </button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                    <ul class="list--inline site-footer__social-icons social-icons">
+                                        <li><a class="social-icons__link" href="#" title="Facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a></li>
+                                        <li><a class="social-icons__link" href="#" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                        <li><a class="social-icons__link" href="#" title="Pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                                        <li><a class="social-icons__link" href="#" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                        <li><a class="social-icons__link" href="#" title="YouTube"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                                        <li><a class="social-icons__link" href="#" title="Vimeo"><i class="fa fa-vimeo" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php endif; ?>
         	<!-- End Newsletter Popup -->
 
-            <div class="hide">
-                <div id="sizechart">
-                    <h3>WOMEN'S BODY SIZING CHART</h3>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th>Size</th>
-                                <th>XS</th>
-                                <th>S</th>
-                                <th>M</th>
-                                <th>L</th>
-                                <th>XL</th>
-                            </tr>
-                            <tr>
-                                <td>Chest</td>
-                                <td>31" - 33"</td>
-                                <td>33" - 35"</td>
-                                <td>35" - 37"</td>
-                                <td>37" - 39"</td>
-                                <td>39" - 42"</td>
-                            </tr>
-                            <tr>
-                                <td>Waist</td>
-                                <td>24" - 26"</td>
-                                <td>26" - 28"</td>
-                                <td>28" - 30"</td>
-                                <td>30" - 32"</td>
-                                <td>32" - 35"</td>
-                            </tr>
-                            <tr>
-                                <td>Hip</td>
-                                <td>34" - 36"</td>
-                                <td>36" - 38"</td>
-                                <td>38" - 40"</td>
-                                <td>40" - 42"</td>
-                                <td>42" - 44"</td>
-                            </tr>
-                            <tr>
-                                <td>Regular inseam</td>
-                                <td>30"</td>
-                                <td>30½"</td>
-                                <td>31"</td>
-                                <td>31½"</td>
-                                <td>32"</td>
-                            </tr>
-                            <tr>
-                                <td>Long (Tall) Inseam</td>
-                                <td>31½"</td>
-                                <td>32"</td>
-                                <td>32½"</td>
-                                <td>33"</td>
-                                <td>33½"</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <h3>MEN'S BODY SIZING CHART</h3>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th>Size</th>
-                                <th>XS</th>
-                                <th>S</th>
-                                <th>M</th>
-                                <th>L</th>
-                                <th>XL</th>
-                                <th>XXL</th>
-                            </tr>
-                            <tr>
-                                <td>Chest</td>
-                                <td>33" - 36"</td>
-                                <td>36" - 39"</td>
-                                <td>39" - 41"</td>
-                                <td>41" - 43"</td>
-                                <td>43" - 46"</td>
-                                <td>46" - 49"</td>
-                            </tr>
-                            <tr>
-                                <td>Waist</td>
-                                <td>27" - 30"</td>
-                                <td>30" - 33"</td>
-                                <td>33" - 35"</td>
-                                <td>36" - 38"</td>
-                                <td>38" - 42"</td>
-                                <td>42" - 45"</td>
-                            </tr>
-                            <tr>
-                                <td>Hip</td>
-                                <td>33" - 36"</td>
-                                <td>36" - 39"</td>
-                                <td>39" - 41"</td>
-                                <td>41" - 43"</td>
-                                <td>43" - 46"</td>
-                                <td>46" - 49"</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div style="padding-left: 30px;"><img src="assets/images/size.jpg" alt=""></div>
-                </div>
-            </div>
-            <div class="hide">
-                <div id="productInquiry">
-                    <div class="contact-form form-vertical">
-                        <div class="page-title">
-                            <h3>Camelia Reversible Jacket</h3>
-                        </div>
-                        <form method="post" action="#" id="contact_form" class="contact-form">
-                            <input type="hidden" name="form_type" value="contact" />
-                            <input type="hidden" name="utf8" value="✓" />
-                            <div class="formFeilds">
-                                <input type="hidden" name="contact[product name]" value="Camelia Reversible Jacket">
-                                <input type="hidden" name="contact[product link]" value="/products/camelia-reversible-jacket-black-red">
-                                <div class="row">
-                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                        <input type="text" id="ContactFormName" name="contact[name]" placeholder="Name" value="" required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                                        <input type="email" id="ContactFormEmail" name="contact[email]" placeholder="Email" autocapitalize="off" value="" required>
-                                    </div>
-                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                                        <input required type="tel" id="ContactFormPhone" name="contact[phone]" pattern="[0-9\-]*" placeholder="Phone Number" value="">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                        <textarea required rows="10" id="ContactFormMessage" name="contact[body]" placeholder="Message"></textarea>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                        <input type="submit" class="btn" value="Send Message">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+            <?php if (request()->routeIs('products.details')): ?>
+                <div class="hide">
+                    <div id="sizechart">
+                        <h3>WOMEN'S BODY SIZING CHART</h3>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Size</th>
+                                    <th>XS</th>
+                                    <th>S</th>
+                                    <th>M</th>
+                                    <th>L</th>
+                                    <th>XL</th>
+                                </tr>
+                                <tr>
+                                    <td>Chest</td>
+                                    <td>31" - 33"</td>
+                                    <td>33" - 35"</td>
+                                    <td>35" - 37"</td>
+                                    <td>37" - 39"</td>
+                                    <td>39" - 42"</td>
+                                </tr>
+                                <tr>
+                                    <td>Waist</td>
+                                    <td>24" - 26"</td>
+                                    <td>26" - 28"</td>
+                                    <td>28" - 30"</td>
+                                    <td>30" - 32"</td>
+                                    <td>32" - 35"</td>
+                                </tr>
+                                <tr>
+                                    <td>Hip</td>
+                                    <td>34" - 36"</td>
+                                    <td>36" - 38"</td>
+                                    <td>38" - 40"</td>
+                                    <td>40" - 42"</td>
+                                    <td>42" - 44"</td>
+                                </tr>
+                                <tr>
+                                    <td>Regular inseam</td>
+                                    <td>30"</td>
+                                    <td>30½"</td>
+                                    <td>31"</td>
+                                    <td>31½"</td>
+                                    <td>32"</td>
+                                </tr>
+                                <tr>
+                                    <td>Long (Tall) Inseam</td>
+                                    <td>31½"</td>
+                                    <td>32"</td>
+                                    <td>32½"</td>
+                                    <td>33"</td>
+                                    <td>33½"</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h3>MEN'S BODY SIZING CHART</h3>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Size</th>
+                                    <th>XS</th>
+                                    <th>S</th>
+                                    <th>M</th>
+                                    <th>L</th>
+                                    <th>XL</th>
+                                    <th>XXL</th>
+                                </tr>
+                                <tr>
+                                    <td>Chest</td>
+                                    <td>33" - 36"</td>
+                                    <td>36" - 39"</td>
+                                    <td>39" - 41"</td>
+                                    <td>41" - 43"</td>
+                                    <td>43" - 46"</td>
+                                    <td>46" - 49"</td>
+                                </tr>
+                                <tr>
+                                    <td>Waist</td>
+                                    <td>27" - 30"</td>
+                                    <td>30" - 33"</td>
+                                    <td>33" - 35"</td>
+                                    <td>36" - 38"</td>
+                                    <td>38" - 42"</td>
+                                    <td>42" - 45"</td>
+                                </tr>
+                                <tr>
+                                    <td>Hip</td>
+                                    <td>33" - 36"</td>
+                                    <td>36" - 39"</td>
+                                    <td>39" - 41"</td>
+                                    <td>41" - 43"</td>
+                                    <td>43" - 46"</td>
+                                    <td>46" - 49"</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="padding-left: 30px;"><img src="assets/images/size.jpg" alt=""></div>
                     </div>
                 </div>
-            </div>
+                <div class="hide">
+                    <div id="productInquiry">
+                        <div class="contact-form form-vertical">
+                            <div class="page-title">
+                                <h3>Camelia Reversible Jacket</h3>
+                            </div>
+                            <form method="post" action="#" id="contact_form" class="contact-form">
+                                <input type="hidden" name="form_type" value="contact" />
+                                <input type="hidden" name="utf8" value="✓" />
+                                <div class="formFeilds">
+                                    <input type="hidden" name="contact[product name]" value="Camelia Reversible Jacket">
+                                    <input type="hidden" name="contact[product link]" value="/products/camelia-reversible-jacket-black-red">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                            <input type="text" id="ContactFormName" name="contact[name]" placeholder="Name" value="" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                            <input type="email" id="ContactFormEmail" name="contact[email]" placeholder="Email" autocapitalize="off" value="" required>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                            <input required type="tel" id="ContactFormPhone" name="contact[phone]" pattern="[0-9\-]*" placeholder="Phone Number" value="">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                            <textarea required rows="10" id="ContactFormMessage" name="contact[body]" placeholder="Message"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                            <input type="submit" class="btn" value="Send Message">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
 
         </div>
 
