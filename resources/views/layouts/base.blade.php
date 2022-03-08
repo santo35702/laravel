@@ -150,7 +150,7 @@
                                                 <?php if (Auth::user()->utype == "ADM"): ?>
                                                     <li><a href="{{ route('admin.dashboard') }}" class="site-nav">Dashboard</a></li>
                                                 <?php else: ?>
-                                                    <li><a href="" class="site-nav">Dashboard</a></li>
+                                                    <li><a href="{{ route('users.dashboard') }}" class="site-nav">Dashboard</a></li>
                                                 <?php endif; ?>
                                                 <li>
                                                     <form method="POST" action="{{ route('logout') }}">

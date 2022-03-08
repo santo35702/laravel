@@ -17,6 +17,7 @@ use App\Http\Livewire\Frontend\CheckoutPage;
 use App\Http\Livewire\Frontend\Wishlist\IndexPage as WishlistPage;
 
 use App\Http\Livewire\Admin\AdminDashboard;
+use App\Http\Livewire\User\UserDashboard;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -69,7 +70,7 @@ Route::get('/404', NotFoundPage::class)->name('not_found');
 // For User / Customer Route__
 Route::middleware(['auth:sanctum', 'verified'])->prefix('/users')->name('users.')->group(function ()
 {
-    // code...
+    Route::get('/dashboard', UserDashboard::class)->name('dashboard');
 });
 
 // For Admin user Route__
