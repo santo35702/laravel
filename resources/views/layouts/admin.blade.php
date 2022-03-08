@@ -90,11 +90,18 @@
                 <div class="sidebar">
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                        <div class="image">
-                            <img src="{{ asset('admin/dist/img/avatar.png') }}" class="img-circle elevation-2" alt="User Image">
-                        </div>
+                        @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                            <div class="image">
+                                <img src="{{ Auth::user()->profile_photo_url }}" class="img-circle elevation-2" alt="{{ Auth::user()->name }}">
+                            </div>
+                        @else
+                            <div class="image">
+                                <img src="{{ asset('admin/dist/img/avatar.png') }}" class="img-circle elevation-2" alt="{{ Auth::user()->name }}">
+                            </div>
+                        @endif
                         <div class="info">
-                            <a href="#" class="d-block">Admin username</a>
+                            <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                            <small class="text-white">{{ Auth::user()->email }}</small>
                         </div>
                     </div>
 
@@ -114,10 +121,28 @@
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             <li class="nav-item">
-                                <a href="#" class="nav-link active">
+                                <a href="#" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                                   <i class="nav-icon fas fa-tachometer-alt"></i>
                                   <p>Dashboard</p>
                                 </a>
+                            </li>
+                            <li class="nav-header">SHOP</li>
+                            <li class="nav-item {{ request()->routeIs('admin.categories.*') ? 'menu-open' : '' }}">
+                                <a href="#" class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
+                                    <i class="nav-icon far fa-clone"></i>
+                                    <p>
+                                        Categories
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.categories.index') }}" class="nav-link {{ request()->routeIs('admin.categories.index') ? 'active' : '' }}">
+                                            <i class="far fa-dot-circle nav-icon"></i>
+                                            <p>List All</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
