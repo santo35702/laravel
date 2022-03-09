@@ -9,7 +9,7 @@ class IndexPage extends Component
 {
     public function render()
     {
-        $categories = Category::paginate(5);
+        $categories = Category::get();
         return view('livewire.admin.category.index-page', ['categories' => $categories])->layout('layouts.admin');
     }
 }

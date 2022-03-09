@@ -1,5 +1,10 @@
 <div class="content-wrapper">
-    <div class="content-header">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
+    <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
@@ -13,17 +18,52 @@
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
-    </div>
+    </section>
 
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <h1>Admin Categories Page.</h1>
-            <?php foreach ($categories as $key): ?>
-                <p>{{ $key->name }}</p>
-            <?php endforeach; ?>
-
-            {{ $categories->links() }}
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Shop Categories Table</h3>
+                        </div>
+                        <div class="card-body table-responsive">
+                            <table id="example1" class="table table-hover text-nowrap table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Slug</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $sl = 1; ?>
+                                    <?php foreach ($categories as $key): ?>
+                                    <tr>
+                                        <td>{{ $sl++ }}</td>
+                                        <td>{{ $key->name }}</td>
+                                        <td>{{ $key->slug }}</td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </div>
+
+@push('script')
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": true, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  });
+</script>
+@endpush
