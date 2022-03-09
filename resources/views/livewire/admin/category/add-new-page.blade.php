@@ -30,21 +30,27 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form>
+                            @if (session('status'))
+                                <div class="alert alert-success">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+                            <form wire:submit.prevent="storeItem">
+                                @csrf
                                 <div class="row">
                                     <div class="col-6 mx-auto">
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <label for="name" class="input-group-text"><i class="fas fa-file-signature"></i></label>
                                             </div>
-                                            <input type="text" class="form-control is-valid" id="name" placeholder="Enter Categories Name">
+                                            <input type="text" class="form-control is-valid" id="name" placeholder="Enter Categories Name" required wire:model="name" wire:keyup="generateSlug">
                                         </div>
-                                        <input type="text" name="slug" value="">
-                                        <div class="form-input">
-                                            <textarea id="summernote" class="form-control" placeholder="Enter Description"></textarea>
+                                        <input type="hidden" wire:model="slug">
+                                        <div class="form-input" wire:ignore>
+                                            <textarea id="summernote" class="form-control" placeholder="Enter Description" required wire:model="description"></textarea>
                                         </div>
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-default">Cancel</button>
+                                            <button type="button" class="btn btn-default">Cancel</button>
                                             <button type="submit" class="btn btn-primary float-right">Submit</button>
                                         </div>
                                     </div>
