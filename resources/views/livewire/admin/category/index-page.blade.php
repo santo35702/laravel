@@ -25,9 +25,13 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
+                    <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h3 class="card-title">Shop Categories Table</h3>
+                            <h3 class="card-title"><i class="fas fa-edit"></i> Shop Categories Table</h3>
+
+                            <div class="card-tools">
+                                <a href="{{ route('admin.categories.add') }}" class="btn btn-tool" title="Add New Category"><i class="fas fa-plus"></i></a>
+                            </div>
                         </div>
                         <div class="card-body table-responsive">
                             <table id="example1" class="table table-hover text-nowrap table-striped table-bordered">

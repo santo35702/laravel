@@ -11,6 +11,8 @@
         <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css') }}">
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ asset('admin/dist/css/adminlte.min.css') }}">
+        <!-- summernote -->
+        <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">
 
         @livewireStyles
     </head>
@@ -207,6 +209,8 @@
         <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
         <!-- AdminLTE App -->
         <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
+        <!-- Summernote -->
+        <script src="{{ asset('admin/plugins/summernote/summernote-bs4.min.js') }}"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="{{ asset('admin/dist/js/demo.js')}}"></script>
 
