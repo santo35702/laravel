@@ -40,6 +40,7 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Slug</th>
+                                        <th>Description</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -49,6 +50,7 @@
                                         <td>{{ $sl++ }}</td>
                                         <td>{{ $key->name }}</td>
                                         <td>{{ $key->slug }}</td>
+                                        <td>{{ $key->description }}</td>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>
