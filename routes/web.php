@@ -20,6 +20,7 @@ use App\Http\Livewire\Frontend\Wishlist\IndexPage as WishlistPage;
 use App\Http\Livewire\Admin\AdminDashboard;
 use App\Http\Livewire\Admin\Category\IndexPage as AdminCategoryPage;
 use App\Http\Livewire\Admin\Category\AddNewPage as AddCategoryPage;
+use App\Http\Livewire\Admin\Category\EditPage as EditCategoryPage;
 
 // For Users__
 use App\Http\Livewire\User\UserDashboard;
@@ -86,5 +87,6 @@ Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->prefix('admin')->n
     {
         Route::get('/', AdminCategoryPage::class)->name('index');
         Route::get('/add-new', AddCategoryPage::class)->name('add');
+        Route::get('/edit/{id}', EditCategoryPage::class)->name('edit');
     });
 });

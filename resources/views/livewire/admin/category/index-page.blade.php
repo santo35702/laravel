@@ -34,12 +34,19 @@
                             </div>
                         </div>
                         <div class="card-body table-responsive">
+                            @if (session('status'))
+                               <div class="alert alert-success text-uppercase alert-dismissible fade show" role="alert">
+                                   {{ session('status') }}
+                                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                               </div>
+                           @endif
                             <table id="example1" class="table table-hover text-nowrap table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Slug</th>
+                                        <th>Action</th>
                                         <th>Description</th>
                                     </tr>
                                 </thead>
@@ -50,6 +57,10 @@
                                         <td>{{ $sl++ }}</td>
                                         <td>{{ $key->name }}</td>
                                         <td>{{ $key->slug }}</td>
+                                        <td class="d-flex justify-content-center align-items-center">
+                                            <a href="{{ route('admin.categories.edit', $key->id) }}" class="btn btn-info btn-sm mr-1"><i class="far fa-edit"></i></a>
+                                            <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                        </td>
                                         <td>{{ $key->description }}</td>
                                     </tr>
                                     <?php endforeach; ?>
