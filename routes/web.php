@@ -18,6 +18,9 @@ use App\Http\Livewire\Frontend\Wishlist\IndexPage as WishlistPage;
 
 // For Admin__
 use App\Http\Livewire\Admin\AdminDashboard;
+use App\Http\Livewire\Admin\Product\IndexPage as AdminProductPage;
+use App\Http\Livewire\Admin\Product\AddNewPage as AddProductPage;
+use App\Http\Livewire\Admin\Product\EditPage as EditProductPage;
 use App\Http\Livewire\Admin\Category\IndexPage as AdminCategoryPage;
 use App\Http\Livewire\Admin\Category\AddNewPage as AddCategoryPage;
 use App\Http\Livewire\Admin\Category\EditPage as EditCategoryPage;
@@ -83,6 +86,12 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('/users')->name('users.'
 Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->prefix('admin')->name('admin.')->group(function ()
 {
     Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
+    Route::prefix('products')->name('products.')->group(function ()
+    {
+        Route::get('/', AdminProductPage::class)->name('index');
+        Route::get('/add-new', AddProductPage::class)->name('add');
+        Route::get('/edit/{id}', EditProductPage::class)->name('edit');
+    });
     Route::prefix('categories')->name('categories.')->group(function ()
     {
         Route::get('/', AdminCategoryPage::class)->name('index');

@@ -129,6 +129,29 @@
                                 </a>
                             </li>
                             <li class="nav-header">SHOP</li>
+                            <li class="nav-item {{ request()->routeIs('admin.products.*') ? 'menu-open' : '' }}">
+                                <a href="#" class="nav-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
+                                    <i class="nav-icon far fa-bookmark"></i>
+                                    <p>
+                                        Product
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.products.index') }}" class="nav-link {{ request()->routeIs('admin.products.index') ? 'active' : '' }}">
+                                            <i class="far fa-dot-circle nav-icon"></i>
+                                            <p>List All</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.products.add') }}" class="nav-link {{ request()->routeIs('admin.products.add') ? 'active' : '' }}">
+                                            <i class="far fa-dot-circle nav-icon"></i>
+                                            <p>Add New</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="nav-item {{ request()->routeIs('admin.categories.*') ? 'menu-open' : '' }}">
                                 <a href="#" class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
                                     <i class="nav-icon far fa-clone"></i>
