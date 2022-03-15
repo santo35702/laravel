@@ -175,6 +175,30 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class="nav-header">HOME PAGE</li>
+                            <li class="nav-item {{ request()->routeIs('admin.carousel.*') ? 'menu-open' : '' }}">
+                                <a href="#" class="nav-link {{ request()->routeIs('admin.carousel.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-sliders-h"></i>
+                                    <p>
+                                        Carousel
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.carousel.index') }}" class="nav-link {{ request()->routeIs('admin.carousel.index') ? 'active' : '' }}">
+                                            <i class="far fa-dot-circle nav-icon"></i>
+                                            <p>List All</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.categories.add') }}" class="nav-link {{ request()->routeIs('admin.categories.add') ? 'active' : '' }}">
+                                            <i class="far fa-dot-circle nav-icon"></i>
+                                            <p>Add New</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-th"></i>
