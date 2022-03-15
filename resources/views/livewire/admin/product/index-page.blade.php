@@ -44,16 +44,16 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 2%">ID</th>
-                                        <th style="width: 22%">Name</th>
-                                        <th style="width: 10%">Slug</th>
-                                        <th style="width: 6%">Price</th>
-                                        <th style="width: 6%">Sale</th>
-                                        <th style="width: 6%">Image</th>
+                                        <th style="width: 23%">Name</th>
+                                        <th style="width: 8%">Price</th>
+                                        <th style="width: 8%">Sale</th>
+                                        <th style="width: 7%">Image</th>
                                         <th style="width: 20%">Images</th>
-                                        <th style="width: 8%">Stock Status</th>
-                                        <th style="width: 8%">Featured</th>
-                                        <th style="width: 8%">Quantity</th>
-                                        <th style="width: 10%">Action</th>
+                                        <th style="width: 9%">Stock Status</th>
+                                        <th style="width: 9%">Featured</th>
+                                        <th style="width: 9%">Quantity</th>
+                                        <th style="width: 15%">Action</th>
+                                        <th>Slug</th>
                                         <th>SKU</th>
                                         <th>Short Description</th>
                                         <th>Description</th>
@@ -73,7 +73,6 @@
                                                 Created {{ $key->created_at }}
                                             </small>
                                         </td>
-                                        <td>{{ $key->slug }}</td>
                                         <td>{{ $key->regular_price }}</td>
                                         <td>{{ $key->sale_price }}</td>
                                         <td><img src="{{ asset('assets/images/product-images/' . $key->image) }}" alt="{{ $key->title }}" class="img-thumbnail mx-auto d-block" width="80px" height="20px"></td>
@@ -107,6 +106,7 @@
                                             <a href="{{ route('admin.products.edit', $key->id) }}" class="btn btn-info btn-sm mr-1"><i class="far fa-edit"></i></a>
                                             <a href="#" onclick="confirm('Are you sure? You want to delete?') || event.stopImmediatePropagation()" class="btn btn-danger btn-sm" wire:click.prevent="deleteItem('{{ $key->id }}')"><i class="fas fa-trash"></i></a>
                                         </td>
+                                        <td>{{ $key->slug }}</td>
                                         <td>{{ $key->sku }}</td>
                                         <td>{{ $key->short_description }}</td>
                                         <td>{{ Str::of($key->description)->words(32) }}</td>

@@ -36,7 +36,7 @@
                                 </div>
                             @endif
 
-                            <form wire:submit.prevent="storeItem">
+                            <form wire:submit.prevent="storeItem" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="input-group mb-3">
