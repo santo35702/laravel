@@ -192,7 +192,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('admin.categories.add') }}" class="nav-link {{ request()->routeIs('admin.categories.add') ? 'active' : '' }}">
+                                        <a href="{{ route('admin.carousel.add') }}" class="nav-link {{ request()->routeIs('admin.carousel.add') ? 'active' : '' }}">
                                             <i class="far fa-dot-circle nav-icon"></i>
                                             <p>Add New</p>
                                         </a>
