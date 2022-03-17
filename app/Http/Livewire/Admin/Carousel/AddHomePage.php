@@ -40,7 +40,7 @@ class AddHomePage extends Component
             $request->session()->flash('status', 'New Carousel Created successfully!');
         }
     }
-    
+
     public function render()
     {
         return view('livewire.admin.carousel.add-home-page')->layout('layouts.admin');

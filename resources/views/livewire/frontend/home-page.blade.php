@@ -3,20 +3,22 @@
     <div class="slideshow slideshow-wrapper pb-section sliderFull">
         <div class="home-slideshow">
             <!-- slide start -->
-            <div class="slide">
-                <div class="blur-up lazyload bg-size">
-                    <img class="blur-up lazyload bg-img" data-src="assets/images/slideshow-banners/belle-banner1.jpg" src="assets/images/slideshow-banners/belle-banner1.jpg" alt="Shop Our New Collection" title="Shop Our New Collection" />
-                    <div class="slideshow__text-wrap slideshow__overlay classic bottom">
-                        <div class="slideshow__text-content bottom">
-                            <div class="wrap-caption center">
-                                <h2 class="h1 mega-title slideshow__title">Shop Our New Collection</h2>
-                                <span class="mega-subtitle slideshow__subtitle">From Hight to low, classic or modern. We have you covered</span>
-                                <span class="btn">Shop now</span>
+            <?php foreach ($carousel as $key): ?>
+                <div class="slide">
+                    <div class="blur-up lazyload bg-size">
+                        <img class="blur-up lazyload bg-img" data-src="{{ asset('assets/images/slideshow-banners/' . $key->image) }}" src="{{ asset('assets/images/slideshow-banners/' . $key->image) }}" alt="{{ $key->title }}" title="{{ $key->title }}" />
+                        <div class="slideshow__text-wrap slideshow__overlay classic bottom">
+                            <div class="slideshow__text-content bottom">
+                                <div class="wrap-caption center">
+                                    <h2 class="h1 mega-title slideshow__title">{{ $key->title }}</h2>
+                                    <span class="mega-subtitle slideshow__subtitle">{{ $key->subtitle }}</span>
+                                    <a href="{{ $key->link }}" class="btn">Shop now</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php endforeach; ?>
             <!-- slide end -->
         </div>
     </div>

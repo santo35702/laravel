@@ -72,7 +72,7 @@
                                             <div class="input-group-prepend">
                                                 <label for="status" class="input-group-text">Status <span class="text-danger">*</span></label>
                                             </div>
-                                            <select class="form-control">
+                                            <select class="form-control" wire:model="status">
                                                 <option value="1">Active</option>
                                                 <option value="0">In-active</option>
                                             </select>
