@@ -200,15 +200,48 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-th"></i>
-                                    <p>
-                                        Simple Link
-                                        <span class="right badge badge-danger">New</span>
-                                    </p>
+                                <a href="{{ route('admin.new_arrival') }}" class="nav-link {{ request()->routeIs('admin.new_arrival') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-ad {{ request()->routeIs('admin.new_arrival') ? '' : 'text-success' }}"></i>
+                                    <p class="text">Manage New Arrival</p>
                                 </a>
                             </li>
-                             <li class="nav-header">SESSION</li>
+                            <li class="nav-header">SETTINGS</li>
+                            @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
+                            <li class="nav-item {{ request()->routeIs('admin.carouse.*') ? 'menu-open' : '' }}">
+                                <a href="#" class="nav-link {{ request()->routeIs('admin.carouse.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-users-cog"></i>
+                                    <p>
+                                        Manage Team
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link {{ request()->routeIs('admin.carouse.index') ? 'active' : '' }}">
+                                            <i class="far fa-dot-circle nav-icon"></i>
+                                            <p>Team Settings</p>
+                                        </a>
+                                    </li>
+                                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link {{ request()->routeIs('admin.carouse.add') ? 'active' : '' }}">
+                                            <i class="far fa-dot-circle nav-icon"></i>
+                                            <p>Create New Team</p>
+                                        </a>
+                                    </li>
+                                    @endcan
+                                    @foreach (Auth::user()->allTeams() as $team)
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link {{ request()->routeIs('admin.carouse.index') ? 'active' : '' }}">
+                                            <i class="far fa-dot-circle nav-icon"></i>
+                                            <p>Switch Teams</p>
+                                        </a>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                            @endif
+                            <li class="nav-header">SESSION</li>
                             <li class="nav-item">
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
@@ -260,6 +293,8 @@
         <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
         <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
         <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+        <!-- Select2 -->
+        <script src="{{ asset('admin/plugins/select2/js/select2.full.min.js') }}"></script>
         <!-- AdminLTE App -->
         <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
         <!-- Summernote -->

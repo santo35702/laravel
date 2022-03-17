@@ -27,6 +27,7 @@ use App\Http\Livewire\Admin\Category\EditPage as EditCategoryPage;
 use App\Http\Livewire\Admin\Carousel\HomePage as CarouselPage;
 use App\Http\Livewire\Admin\Carousel\AddHomePage;
 use App\Http\Livewire\Admin\Carousel\EditHomePage;
+use App\Http\Livewire\Admin\Home\CategoryPage;
 
 // For Users__
 use App\Http\Livewire\User\UserDashboard;
@@ -107,4 +108,5 @@ Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->prefix('admin')->n
         Route::get('/add-new', AddHomePage::class)->name('add');
         Route::get('/edit/{id}', EditHomePage::class)->name('edit');
     });
+    Route::get('home-category', CategoryPage::class)->name('new_arrival');
 });
