@@ -74,7 +74,7 @@
                                             </small>
                                         </td>
                                         <td>{{ $key->regular_price }}</td>
-                                        <td>{{ $key->sale_price }}</td>
+                                        <td>{{ $key->sale_price ? $key->sale_price : '0.00' }}</td>
                                         <td><img src="{{ asset('assets/images/product-images/' . $key->image) }}" alt="{{ $key->title }}" class="img-thumbnail mx-auto d-block" width="80px" height="20px"></td>
                                         <td>
                                             <ul class="list-inline">

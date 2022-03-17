@@ -292,18 +292,32 @@
                                                 <img class="hover blur-up lazyload" data-src="{{ asset('assets/images/product-images/product-image1-1.jpg') }}" src="{{ asset('assets/images/product-images/product-image1-1.jpg') }}" alt="{{ $key->title }}" title="{{ $key->title }}">
                                                 <!-- End hover image -->
                                                 <!-- product label -->
-                                                <div class="product-labels rectangular"><span class="lbl pr-label3">Popular</span><span class="lbl on-sale">Sale</span><span class="lbl on-sale">-16%</span><span class="lbl pr-label2">Hot</span> <span class="lbl pr-label1">new</span></div>
+                                                <div class="product-labels rectangular">
+                                                    <?php if ($key->sale_price > 0): ?>
+                                                        <span class="lbl on-sale">Sale</span>
+                                                        <span class="lbl on-sale">-16%</span>
+                                                    <?php endif; ?>
+                                                    <span class="lbl pr-label3">Popular</span>
+                                                    <span class="lbl pr-label2">Hot</span>
+                                                    <span class="lbl pr-label1">new</span>
+                                                </div>
                                                 <span class="sold-out"><span>Sold out</span></span>
                                                 <!-- End product label -->
                                             </a>
                                             <!-- end product image -->
 
                                             <!-- countdown start -->
+                                            <?php if ($key->sale_price > 0): ?>
                                             <div class="saleTime desktop" data-countdown="2022/03/01"></div>
+                                            <?php endif; ?>
                                             <!-- countdown end -->
 
                                             <!-- Start product button -->
-                                            <a href="#" class="variants add btn btn-addto-cart" wire:click.prevent="AddToCart({{ $key->id }}, '{{ $key->title }}', {{ $key->regular_price }})">Add To Cart</a>
+                                            <?php if ($key->sale_price > 0): ?>
+                                                <a href="#" class="variants add btn btn-addto-cart" wire:click.prevent="AddToCart({{ $key->id }}, '{{ $key->title }}', {{ $key->sale_price }})">Add To Cart</a>
+                                            <?php else: ?>
+                                                <a href="#" class="variants add btn btn-addto-cart" wire:click.prevent="AddToCart({{ $key->id }}, '{{ $key->title }}', {{ $key->regular_price }})">Add To Cart</a>
+                                            <?php endif; ?>
                                             <div class="button-set">
                                                 <a href="javascript:void(0)" title="Quick View" class="quick-view-popup quick-view" data-toggle="modal" data-target="#content_quickview">
                                                     <i class="icon anm anm-search-plus-r"></i>
@@ -332,8 +346,12 @@
                                             <!-- End product name -->
                                             <!-- product price -->
                                             <div class="product-price">
-                                                <span class="old-price">${{ $key->regular_price }}</span>
-                                                <span class="price">${{ $key->sale_price }}</span>
+                                                <?php if ($key->sale_price > 0): ?>
+                                                    <span class="old-price">${{ $key->regular_price }}</span>
+                                                    <span class="price">${{ $key->sale_price }}</span>
+                                                <?php else: ?>
+                                                    <span class="price">${{ $key->regular_price }}</span>
+                                                <?php endif; ?>
                                             </div>
                                             <!-- End product price -->
 
@@ -356,9 +374,11 @@
                                         </div>
                                         <!-- End product details -->
                                         <!-- countdown start -->
-                                        <div class="timermobile">
-                                            <div class="saleTime desktop" data-countdown="2022/03/01"></div>
-                                        </div>
+                                        <?php if ($key->sale_price > 0): ?>
+                                            <div class="timermobile">
+                                                <div class="saleTime desktop" data-countdown="2022/03/01"></div>
+                                            </div>
+                                        <?php endif; ?>
                                         <!-- countdown end -->
                                     </div>
                                 <?php endforeach; ?>

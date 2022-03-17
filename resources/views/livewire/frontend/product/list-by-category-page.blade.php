@@ -303,11 +303,19 @@
                                         <!-- End Sort Description -->
                                         <!-- Price -->
                                         <p class="product-price grid-view-item__meta">
-                                            <span class="old-price">${{ $key->regular_price }}</span>
-                                            <span class="product-price__price product-price__sale"><span class="money">${{ $key->sale_price }}</span></span>
+                                            <?php if ($key->sale_price > 0): ?>
+                                                <span class="old-price">${{ $key->regular_price }}</span>
+                                                <span class="product-price__price product-price__sale"><span class="money">${{ $key->sale_price }}</span></span>
+                                            <?php else: ?>
+                                                <span class="product-price__price"><span class="money">${{ $key->regular_price }}</span></span>
+                                            <?php endif; ?>
                                         </p>
                                         <!-- End Price -->
-                                        <a href="#" class="variants btn btn--small" wire:click.prevent="AddToCart({{ $key->id }}, '{{ $key->title }}', {{ $key->regular_price }})">Add To Cart</a>
+                                        <?php if ($key->sale_price > 0): ?>
+                                            <a href="#" class="variants btn btn--small" wire:click.prevent="AddToCart({{ $key->id }}, '{{ $key->title }}', {{ $key->sale_price }})">Add To Cart</a>
+                                        <?php else: ?>
+                                            <a href="#" class="variants btn btn--small" wire:click.prevent="AddToCart({{ $key->id }}, '{{ $key->title }}', {{ $key->regular_price }})">Add To Cart</a>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
