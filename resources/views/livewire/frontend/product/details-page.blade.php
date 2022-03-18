@@ -31,7 +31,15 @@
                                 <div class="zoompro-span">
                                     <img class="blur-up lazyload zoompro" data-zoom-image="{{ asset('assets/images/product-images/' . $product->image) }}" alt="" src="{{ asset('assets/images/product-images/' . $product->image) }}" />
                                 </div>
-                                <div class="product-labels"><span class="lbl on-sale">Sale</span><span class="lbl pr-label1">new</span></div>
+                                <div class="product-labels">
+                                    <?php if ($product->sale_price > 0): ?>
+                                        <span class="lbl on-sale">Sale</span>
+                                        <span class="lbl on-sale">-16%</span>
+                                    <?php endif; ?>
+                                    <span class="lbl pr-label3">Popular</span>
+                                    <span class="lbl pr-label2">Hot</span>
+                                    <span class="lbl pr-label1">new</span>
+                                </div>
                                 <div class="product-buttons">
                                     <a href="https://www.youtube.com/watch?v=93A2jOW5Mog" class="btn popup-video" title="View Video"><i class="icon anm anm-play-r" aria-hidden="true"></i></a>
                                     <a href="#" class="btn prlightbox" title="Zoom"><i class="icon anm anm-expand-l-arrows" aria-hidden="true"></i></a>
@@ -54,18 +62,24 @@
                                             class="font-13 fa fa-star-o"></i><span class="spr-badge-caption">6 reviews</span></a></div>
                             </div>
                             <p class="product-single__price product-single__price-product-template">
-                                <span class="visually-hidden">Regular price</span>
-                                <s id="ComparePrice-product-template"><span class="money">${{ $product->regular_price }}</span></s>
-                                <span class="product-price__price product-price__price-product-template product-price__sale product-price__sale--single">
-                                    <span id="ProductPrice-product-template"><span class="money">${{ $product->sale_price }}</span></span>
-                                </span>
-                                <span class="discount-badge"> <span class="devider">|</span>&nbsp;
-                                    <span>You Save</span>
-                                    <span id="SaveAmount-product-template" class="product-single__save-amount">
-                                        <span class="money">$100.00</span>
+                                <?php if ($product->sale_price > 0): ?>
+                                    <span class="visually-hidden">Regular price</span>
+                                    <s id="ComparePrice-product-template"><span class="money">${{ $product->regular_price }}</span></s>
+                                    <span class="product-price__price product-price__price-product-template product-price__sale product-price__sale--single">
+                                        <span id="ProductPrice-product-template"><span class="money">${{ $product->sale_price }}</span></span>
                                     </span>
-                                    <span class="off">(<span>16</span>%)</span>
-                                </span>
+                                    <span class="discount-badge"> <span class="devider">|</span>&nbsp;
+                                        <span>You Save</span>
+                                        <span id="SaveAmount-product-template" class="product-single__save-amount">
+                                            <span class="money">${{ ($product->regular_price)-($product->sale_price) }}</span>
+                                        </span>
+                                        <span class="off">(<span>16</span>%)</span>
+                                    </span>
+                                <?php else: ?>
+                                    <span class="product-price__price product-price__price-product-template product-price__sale--single">
+                                        <span id="ProductPrice-product-template"><span class="money">${{ $product->regular_price }}</span></span>
+                                    </span>
+                                <?php endif; ?>
                             </p>
                             <div class="orderMsg" data-user="23" data-time="24">
                                 <img src="{{ asset('assets/images/order-icon.jpg')}}" alt="" /> <strong class="items">5</strong> sold in last <strong class="time">26</strong> hours
