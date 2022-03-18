@@ -205,6 +205,13 @@
                                     <p class="text">Manage New Arrival</p>
                                 </a>
                             </li>
+                            <li class="nav-header">OTHERS</li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.sale') }}" class="nav-link {{ request()->routeIs('admin.sale') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-hourglass-half {{ request()->routeIs('admin.sale') ? '' : 'text-success' }}"></i>
+                                    <p class="text">Manage Sale Timer</p>
+                                </a>
+                            </li>
                             <li class="nav-header">SETTINGS</li>
                             @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                             <li class="nav-item {{ request()->routeIs('admin.carouse.*') ? 'menu-open' : '' }}">
@@ -295,6 +302,10 @@
         <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
         <!-- Select2 -->
         <script src="{{ asset('admin/plugins/select2/js/select2.full.min.js') }}"></script>
+        <!-- InputMask -->
+        <script src="{{ asset('admin/plugins/moment/moment.min.js') }}"></script>
+        <!-- Tempusdominus Bootstrap 4 -->
+        <script src="{{ asset('admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
         <!-- AdminLTE App -->
         <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
         <!-- Summernote -->

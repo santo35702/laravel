@@ -62,6 +62,7 @@ return array(
     'App\\Models\\HomeCategory' => $baseDir . '/app/Models/HomeCategory.php',
     'App\\Models\\Membership' => $baseDir . '/app/Models/Membership.php',
     'App\\Models\\Product' => $baseDir . '/app/Models/Product.php',
+    'App\\Models\\Sale' => $baseDir . '/app/Models/Sale.php',
     'App\\Models\\Team' => $baseDir . '/app/Models/Team.php',
     'App\\Models\\TeamInvitation' => $baseDir . '/app/Models/TeamInvitation.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
