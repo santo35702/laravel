@@ -303,7 +303,7 @@
                                         <!-- End Sort Description -->
                                         <!-- Price -->
                                         <p class="product-price grid-view-item__meta">
-                                            <?php if ($key->sale_price > 0): ?>
+                                            <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
                                                 <span class="old-price">${{ $key->regular_price }}</span>
                                                 <span class="product-price__price product-price__sale"><span class="money">${{ $key->sale_price }}</span></span>
                                             <?php else: ?>
@@ -311,7 +311,7 @@
                                             <?php endif; ?>
                                         </p>
                                         <!-- End Price -->
-                                        <?php if ($key->sale_price > 0): ?>
+                                        <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
                                             <a href="#" class="variants btn btn--small" wire:click.prevent="AddToCart({{ $key->id }}, '{{ $key->title }}', {{ $key->sale_price }})">Add To Cart</a>
                                         <?php else: ?>
                                             <a href="#" class="variants btn btn--small" wire:click.prevent="AddToCart({{ $key->id }}, '{{ $key->title }}', {{ $key->regular_price }})">Add To Cart</a>

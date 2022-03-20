@@ -26,7 +26,7 @@ class SalePage extends Component
         $sale->save();
         $request->session()->flash('status', 'Sale Time Updated successfully!');
     }
-    
+
     public function render()
     {
         return view('livewire.admin.sale-page')->layout('layouts.admin');

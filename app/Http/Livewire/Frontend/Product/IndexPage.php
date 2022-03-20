@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Frontend\Product;
 
 use Livewire\Component;
 use App\Models\Product;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 use Cart;
 
@@ -44,6 +45,7 @@ class IndexPage extends Component
         }
 
         $popular_products = Product::inRandomOrder()->limit(8)->get();
-        return view('livewire.frontend.product.index-page', ['products' => $products, 'popular_products' => $popular_products])->layout('layouts.base');
+        $sale = Sale::find(1);
+        return view('livewire.frontend.product.index-page', ['products' => $products, 'popular_products' => $popular_products, 'sale' => $sale])->layout('layouts.base');
     }
 }

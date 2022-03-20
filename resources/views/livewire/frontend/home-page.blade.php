@@ -59,7 +59,7 @@
                                                         <!-- End hover image -->
                                                         <!-- product label -->
                                                         <div class="product-labels rectangular">
-                                                            <?php if ($key->sale_price > 0): ?>
+                                                            <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now()): ?>
                                                                 <span class="lbl on-sale">Sale</span>
                                                                 <span class="lbl on-sale">-16%</span>
                                                             <?php endif; ?>
@@ -71,13 +71,13 @@
                                                     <!-- end product image -->
 
                                                     <!-- countdown start -->
-                                                    <?php if ($key->sale_price > 0): ?>
-                                                    <div class="saleTime desktop" data-countdown="2022/03/01"></div>
+                                                    <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now()): ?>
+                                                        <div class="saleTime desktop" data-countdown="{{ Carbon\Carbon::parse($sale->sale_date) }}"></div>
                                                     <?php endif; ?>
                                                     <!-- countdown end -->
 
                                                     <!-- Start product button -->
-                                                    <?php if ($key->sale_price > 0): ?>
+                                                    <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now()): ?>
                                                         <a href="#" class="variants add btn btn-addto-cart" wire:click.prevent="AddToCart({{ $key->id }}, '{{ $key->title }}', {{ $key->sale_price }})">Add To Cart</a>
                                                     <?php else: ?>
                                                         <a href="#" class="variants add btn btn-addto-cart" wire:click.prevent="AddToCart({{ $key->id }}, '{{ $key->title }}', {{ $key->regular_price }})">Add To Cart</a>
@@ -109,7 +109,7 @@
                                                     <!-- End product name -->
                                                     <!-- product price -->
                                                     <div class="product-price">
-                                                        <?php if ($key->sale_price > 0): ?>
+                                                        <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now()): ?>
                                                             <span class="old-price">${{ $key->regular_price }}</span>
                                                             <span class="price">${{ $key->sale_price }}</span>
                                                         <?php else: ?>
@@ -137,9 +137,9 @@
                                                 </div>
                                                 <!-- End product details -->
                                                 <!-- countdown start -->
-                                                <?php if ($key->sale_price > 0): ?>
+                                                <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now()): ?>
                                                     <div class="timermobile">
-                                                        <div class="saleTime desktop" data-countdown="2022/03/01"></div>
+                                                        <div class="saleTime desktop" data-countdown="{{ Carbon\Carbon::parse($sale->sale_date) }}"></div>
                                                     </div>
                                                 <?php endif; ?>
                                                 <!-- countdown end -->
