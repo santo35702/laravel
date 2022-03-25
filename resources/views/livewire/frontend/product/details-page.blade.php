@@ -32,7 +32,7 @@
                                     <img class="blur-up lazyload zoompro" data-zoom-image="{{ asset('assets/images/product-images/' . $product->image) }}" alt="" src="{{ asset('assets/images/product-images/' . $product->image) }}" />
                                 </div>
                                 <div class="product-labels">
-                                    <?php if ($product->sale_price > 0): ?>
+                                    <?php if ($product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
                                         <span class="lbl on-sale">Sale</span>
                                         <span class="lbl on-sale">-16%</span>
                                     <?php endif; ?>
@@ -62,7 +62,7 @@
                                             class="font-13 fa fa-star-o"></i><span class="spr-badge-caption">6 reviews</span></a></div>
                             </div>
                             <p class="product-single__price product-single__price-product-template">
-                                <?php if ($product->sale_price > 0): ?>
+                                <?php if ($product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
                                     <span class="visually-hidden">Regular price</span>
                                     <s id="ComparePrice-product-template"><span class="money">${{ $product->regular_price }}</span></s>
                                     <span class="product-price__price product-price__price-product-template product-price__sale product-price__sale--single">
@@ -480,20 +480,45 @@
                                     <img class="hover blur-up lazyload" data-src="{{ asset('assets/images/product-images/product-image1-1.jpg') }}" src="{{ asset('assets/images/product-images/product-image1-1.jpg') }}" alt="image" title="product">
                                     <!-- End hover image -->
                                     <!-- product label -->
-                                    <div class="product-labels rectangular"><span class="lbl on-sale">-16%</span> <span class="lbl pr-label1">new</span></div>
+                                    <div class="product-labels rectangular">
+                                        <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
+                                            <span class="lbl on-sale">Sale</span>
+                                            <span class="lbl on-sale">-16%</span>
+                                        <?php endif; ?>
+                                        <span class="lbl pr-label3">Popular</span>
+                                        <span class="lbl pr-label2">Hot</span>
+                                        <span class="lbl pr-label1">new</span>
+                                    </div>
+                                    <span class="sold-out"><span>Sold out</span></span>
                                     <!-- End product label -->
                                 </a>
                                 <!-- end product image -->
 
+                                <!-- countdown start -->
+                                <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
+                                    <div class="saleTime desktop" data-countdown="{{ Carbon\Carbon::parse($sale->sale_date) }}"></div>
+                                <?php endif; ?>
+                                <!-- countdown end -->
+
                                 <!-- Start product button -->
-                                <a href="#" class="variants add btn btn-addto-cart" wire:click.prevent="AddToCart({{ $key->id }}, '{{ $key->title }}', {{ $key->regular_price }})">Add To Cart</a>
+                                <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
+                                    <a href="#" class="variants add btn btn-addto-cart" wire:click.prevent="AddToCart({{ $key->id }}, '{{ $key->title }}', {{ $key->sale_price }})">Add To Cart</a>
+                                <?php else: ?>
+                                    <a href="#" class="variants add btn btn-addto-cart" wire:click.prevent="AddToCart({{ $key->id }}, '{{ $key->title }}', {{ $key->regular_price }})">Add To Cart</a>
+                                <?php endif; ?>
+
                                 <div class="button-set">
-                                    <a href="#" title="Quick View" class="quick-view" tabindex="0">
+                                    <a href="javascript:void(0)" title="Quick View" class="quick-view-popup quick-view" data-toggle="modal" data-target="#content_quickview">
                                         <i class="icon anm anm-search-plus-r"></i>
                                     </a>
                                     <div class="wishlist-btn">
-                                        <a class="wishlist add-to-wishlist" href="wishlist.html">
+                                        <a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist">
                                             <i class="icon anm anm-heart-l"></i>
+                                        </a>
+                                    </div>
+                                    <div class="compare-btn">
+                                        <a class="compare add-to-compare" href="compare.html" title="Add to Compare">
+                                            <i class="icon anm anm-random-r"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -509,8 +534,12 @@
                                 <!-- End product name -->
                                 <!-- product price -->
                                 <div class="product-price">
-                                    <span class="old-price">${{ $key->regular_price }}</span>
-                                    <span class="price">${{ $key->sale_price }}</span>
+                                    <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
+                                        <span class="old-price">${{ $key->regular_price }}</span>
+                                        <span class="price">${{ $key->sale_price }}</span>
+                                    <?php else: ?>
+                                        <span class="price">${{ $key->regular_price }}</span>
+                                    <?php endif; ?>
                                 </div>
                                 <!-- End product price -->
 
@@ -532,6 +561,13 @@
                                 <!-- End Variant -->
                             </div>
                             <!-- End product details -->
+                            <!-- countdown start -->
+                            <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
+                                <div class="timermobile">
+                                    <div class="saleTime desktop" data-countdown="{{ Carbon\Carbon::parse($sale->sale_date) }}"></div>
+                                </div>
+                            <?php endif; ?>
+                            <!-- countdown end -->
                         </div>
                     <?php endforeach; ?>
                 </div>

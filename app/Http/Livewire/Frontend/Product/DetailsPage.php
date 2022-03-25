@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Frontend\Product;
 
 use Livewire\Component;
 use App\Models\Product;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 use Cart;
 
@@ -27,6 +28,7 @@ class DetailsPage extends Component
     {
         $product = Product::where('slug', $this->slug)->first();
         $related_product = Product::where('category_id', $product->category_id)->inRandomOrder()->limit(10)->get();
-        return view('livewire.frontend.product.details-page', ['product' => $product, 'related_product' => $related_product])->layout('layouts.base');
+        $sale = Sale::find(1);
+        return view('livewire.frontend.product.details-page', ['product' => $product, 'related_product' => $related_product, 'sale' => $sale])->layout('layouts.base');
     }
 }

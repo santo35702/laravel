@@ -51,13 +51,17 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="date">Date</label>
+                                            <input type="text" class="form-control datetimepicker-input" data-toggle="datetimepicker" data-target="#datepicker" id="datepicker" wire:model="sale_date"/>
+                                        </div>
+                                        <!-- <div class="form-group">
+                                            <label for="date">Date</label>
                                             <div class="input-group date" id="datepicker" data-target-input="nearest">
                                                 <input type="text" class="form-control datetimepicker-input" data-target="#datepicker" id="sale_date" wire:model="sale_date"/>
                                                 <div class="input-group-append" data-target="#datepicker" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group">
                                             <a href="{{ route('admin.dashboard') }}" class="btn btn-default" role="button">Cancel</a>
                                             <button type="submit" class="btn btn-primary float-right">Save Changes</button>
@@ -79,7 +83,7 @@
     // Datepicker
     $('#datepicker').datetimepicker()
     .on('dp.change', function (ev) {
-        var data = $('#sale_date').val();
+        var data = $('#datepicker').val();
         @this.set('sale_date', data);
     });
   })
