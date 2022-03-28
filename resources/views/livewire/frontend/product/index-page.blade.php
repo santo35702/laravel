@@ -33,7 +33,18 @@
                     <?php endif; ?>
                     <!--Categories-->
                     <!--Price Filter-->
-                    <div class="sidebar_widget filterBox filter-widget">
+                    <div class="sidebar_widget filterBox filter-widget mb-5 pb-3">
+                        <div class="widget-title">
+                            <h2>Price:</h2>
+                        </div>
+                        <div id="slider" wire:ignore></div>
+                        <div class="row">
+                            <div class="col-6">
+                                <!-- <p class="no-margin"><input type="text" readonly style="color: #f6931f;"></p> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="sidebar_widget filterBox filter-widget">
                         <div class="widget-title">
                             <h2>Price</h2>
                         </div>
@@ -52,7 +63,7 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
+                    </div> -->
                     <!--End Price Filter-->
                     <!--Size Swatches-->
                     <div class="sidebar_widget filterBox filter-widget size-swacthes">
@@ -410,3 +421,41 @@
         </div>
     </div>
 </div>
+
+@push('script')
+    <script>
+        var slider = document.getElementById('slider');
+
+        noUiSlider.create(slider, {
+            // Handles start at ...
+            start: [0, 2000],
+            margin: 30,
+            step: 100,
+            // Display colored bars between handles
+            connect: true,
+            range: {
+                'min': 0,
+                'max': 2000
+            },
+            // show/hide Tooltip true = show, false = hide
+            tooltips: true,
+            // Show a scale with the slider
+            pips: {
+                mode: 'steps',
+                stepped: true,
+                density: 10,
+            }
+        });
+
+        // When the slider value changes, update the input and span
+        var inputFormat = document.getElementById('slider');
+
+        sliderFormat.noUiSlider.on('update', function (values, handles) {
+            inputFormat.value = values[handle];
+        });
+
+        inputFormat.addEventListener('change', function () {
+            sliderFormat.noUiSlider.set(this.value);
+        })
+    </script>
+@endpush
