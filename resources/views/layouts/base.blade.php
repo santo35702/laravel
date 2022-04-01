@@ -692,9 +692,7 @@
         <script src="{{ asset('assets/js/popper.min.js') }}"></script>
         <script src="{{ asset('assets/js/lazysizes.js') }}"></script>
         <script src="{{ asset('assets/js/main.js') }}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.js">
-
-        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.js"></script>
         <!--For Newsletter Popup-->
 
         <!--End For Newsletter Popup-->

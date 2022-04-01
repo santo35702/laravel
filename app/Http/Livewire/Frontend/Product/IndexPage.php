@@ -22,7 +22,7 @@ class IndexPage extends Component
         $this->pagesize = 20;
 
         $this->min_price = 0;
-        $this->max_price = 2000;
+        $this->max_price = 1000;
     }
 
     public function AddToCart(Request $request, $id, $title, $price)

@@ -33,16 +33,11 @@
                     <?php endif; ?>
                     <!--Categories-->
                     <!--Price Filter-->
-                    <div class="sidebar_widget filterBox filter-widget mb-5 pb-3">
+                    <div class="sidebar_widget filterBox filter-widget">
                         <div class="widget-title">
-                            <h2>Price:</h2>
+                            <h2>Price <span class="">${{ $min_price }} - ${{ $max_price }}</span></h2>
                         </div>
-                        <div id="slider" wire:ignore></div>
-                        <div class="row">
-                            <div class="col-6">
-                                <!-- <p class="no-margin"><input type="text" readonly style="color: #f6931f;"></p> -->
-                            </div>
-                        </div>
+                        <div id="price" wire:ignore></div>
                     </div>
                     <!-- <div class="sidebar_widget filterBox filter-widget">
                         <div class="widget-title">
@@ -424,38 +419,28 @@
 
 @push('script')
     <script>
-        var slider = document.getElementById('slider');
-
-        noUiSlider.create(slider, {
+        var slider = document.getElementById('price');
+        noUiSlider.create(slider,{
             // Handles start at ...
-            start: [0, 2000],
-            margin: 30,
-            step: 100,
+            start: [0, 1000],
             // Display colored bars between handles
             connect: true,
+            // margin: 30,
+            step: 20,
             range: {
-                'min': 0,
-                'max': 2000
+                'min' : 0,
+                'max' : 1000
             },
-            // show/hide Tooltip true = show, false = hide
-            tooltips: true,
-            // Show a scale with the slider
             pips: {
                 mode: 'steps',
                 stepped: true,
-                density: 10,
+                density: 10
             }
         });
 
-        // When the slider value changes, update the input and span
-        var inputFormat = document.getElementById('slider');
-
-        sliderFormat.noUiSlider.on('update', function (values, handles) {
-            inputFormat.value = values[handle];
-        });
-
-        inputFormat.addEventListener('change', function () {
-            sliderFormat.noUiSlider.set(this.value);
+        slider.noUiSlider.on('update', function (value) {
+            @this.set('min_price', value[0]);
+            @this.set('max_price', value[1]);
         })
     </script>
 @endpush
