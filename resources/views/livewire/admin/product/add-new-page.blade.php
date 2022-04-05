@@ -30,8 +30,18 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            @error('slug')
+                                <div class="alert alert-danger alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <i class="icon fas fa-ban"></i>
+                                    {{ $message }}
+                                </div>
+                            @enderror
+
                             @if (session('status'))
-                                <div class="alert alert-success text-uppercase" role="alert">
+                                <div class="alert alert-success alert-dismissible text-uppercase" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <i class="icon fas fa-check-circle"></i>
                                     {{ session('status') }}
                                 </div>
                             @endif
@@ -43,7 +53,12 @@
                                             <div class="input-group-prepend">
                                                 <label for="title" class="input-group-text">Name <span class="text-danger">*</span></label>
                                             </div>
-                                            <input type="text" class="form-control" id="title" placeholder="Enter Products Name" wire:model="title" wire:keyup="generateSlug">
+                                            <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" placeholder="Enter Products Name" wire:model="title" wire:keyup="generateSlug">
+                                            @error('title')
+                                                <div id="title" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" wire:model="slug">
@@ -52,19 +67,34 @@
                                             <div class="input-group-prepend">
                                                 <label for="short_description" class="input-group-text">Short Description <span class="text-danger">*</span></label>
                                             </div>
-                                            <textarea class="form-control" placeholder="Enter Short Description" required wire:model="short_description"></textarea>
+                                            <textarea class="form-control @error('short_description') is-invalid @enderror" placeholder="Enter Short Description" wire:model="short_description"></textarea>
+                                            @error('short_description')
+                                                <div id="short_description" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <label for="regular_price" class="input-group-text">Regular Price <span class="text-danger">*</span></label>
                                             </div>
-                                            <input type="number" class="form-control" id="regular_price" placeholder="Enter Products Regular Price" wire:model="regular_price">
+                                            <input type="number" class="form-control @error('regular_price') is-invalid @enderror" id="regular_price" placeholder="Enter Products Regular Price" wire:model="regular_price">
+                                            @error('regular_price')
+                                                <div id="regular_price" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <label for="sale_price" class="input-group-text">Sale Price</label>
                                             </div>
-                                            <input type="number" class="form-control" id="sale_price" placeholder="Enter Products Sale Price" wire:model="sale_price">
+                                            <input type="number" class="form-control @error('sale_price') is-invalid @enderror" id="sale_price" placeholder="Enter Products Sale Price" wire:model="sale_price">
+                                            @error('sale_price')
+                                                <div id="sale_price" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-file">
@@ -73,24 +103,39 @@
                                                 <?php if ($image): ?>
                                                     <img src="{{ $image->temporaryUrl() }}" alt="Product Image" class="img-fluid img-thumbnail mb-3" width="100">
                                                 <?php endif; ?>
+                                                @error('image')
+                                                    <div id="image" class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <label for="category" class="input-group-text">Category <span class="text-danger">*</span></label>
                                             </div>
-                                            <select class="custom-select" id="category" required wire:model="category">
+                                            <select class="custom-select @error('category') is-invalid @enderror" id="category" wire:model="category">
                                                 <option>Select Category...</option>
                                                 <?php foreach (\App\Models\Category::orderBy('name', 'ASC')->get() as $key): ?>
                                                     <option value="{{ $key->id }}">{{ $key->name }}</option>
                                                 <?php endforeach; ?>
                                             </select>
+                                            @error('category')
+                                                <div id="category" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <textarea class="form-control" rows="4" placeholder="Enter Description" required wire:model="description"></textarea>
+                                            <textarea class="form-control @error('description') is-invalid @enderror" rows="4" placeholder="Enter Description" wire:model="description"></textarea>
+                                            @error('description')
+                                                <div id="description" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
@@ -114,13 +159,23 @@
                                             <div class="input-group-prepend">
                                                 <label for="quantity" class="input-group-text">Quantity <span class="text-danger">*</span></label>
                                             </div>
-                                            <input type="text" class="form-control" id="quantity" placeholder="Enter Products Quantity" wire:model="quantity">
+                                            <input type="text" class="form-control @error('quantity') is-invalid @enderror" id="quantity" placeholder="Enter Products Quantity" wire:model="quantity">
+                                            @error('quantity')
+                                                <div id="quantity" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <label for="sku" class="input-group-text">SKU <span class="text-danger">*</span></label>
                                             </div>
-                                            <input type="text" class="form-control" id="sku" placeholder="Enter Products SKU" wire:model="sku">
+                                            <input type="text" class="form-control @error('sku') is-invalid @enderror" id="sku" placeholder="Enter Products SKU" wire:model="sku">
+                                            @error('sku')
+                                                <div id="sku" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-12">

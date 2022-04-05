@@ -18,8 +18,23 @@ class AddNewPage extends Component
         $this->slug = Str::slug($this->name, '-');
     }
 
+    public function updated($fields)
+    {
+        $this->validateOnly($fields,[
+            'name' => 'required|unique:categories',
+            'slug' => 'required|unique:categories',
+            'description' => 'required',
+        ]);
+    }
+
     public function storeItem(Request $request)
     {
+        $this->validate([
+            'name' => 'required|unique:categories',
+            'slug' => 'required|unique:categories',
+            'description' => 'required',
+        ]);
+
         $category = new Category();
         $category->name = $this->name;
         $category->slug = $this->slug;

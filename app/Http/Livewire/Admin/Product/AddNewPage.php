@@ -37,8 +37,41 @@ class AddNewPage extends Component
         $this->slug = Str::slug($this->title, '-');
     }
 
+    public function updated($fields)
+    {
+        $this->validateOnly($fields,[
+            'title' => 'required|unique:products',
+            'slug' => 'required|unique:products',
+            'short_description' => 'required',
+            'description' => 'required',
+            'regular_price' => 'required|numeric',
+            'sale_price' => 'nullable|numeric',
+            'sku' => 'required',
+            'stock_status' => 'required',
+            'quantity' => 'required|numeric',
+            'image' => 'required|mimes:jpeg,png,jpg',
+            'category' => 'required|numeric',
+            'quantity' => 'required|numeric',
+        ]);
+    }
+
     public function storeItem(Request $request)
     {
+        $this->validate([
+            'title' => 'required|unique:products',
+            'slug' => 'required|unique:products',
+            'short_description' => 'required',
+            'description' => 'required',
+            'regular_price' => 'required|numeric',
+            'sale_price' => 'nullable|numeric',
+            'sku' => 'required',
+            'stock_status' => 'required',
+            'quantity' => 'required|numeric',
+            'image' => 'required|mimes:jpeg,png,jpg',
+            'category' => 'required|numeric',
+            'quantity' => 'required|numeric',
+        ]);
+
         $product = new Product();
         $product->title = $this->title;
         $product->slug = $this->slug;
@@ -57,7 +90,7 @@ class AddNewPage extends Component
         $product->save();
         $request->session()->flash('status', 'New Product Created successfully!');
     }
-    
+
     public function render()
     {
         return view('livewire.admin.product.add-new-page')->layout('layouts.admin');
