@@ -6,18 +6,37 @@ use Livewire\Component;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Sale;
+use Illuminate\Http\Request;
+use Cart;
 
 class ByCategoryPage extends Component
 {
     public $sorting;
     public $pagesize;
     public $slug;
+    public $min_price;
+    public $max_price;
 
     public function mount($slug)
     {
         $this->sorting = 'default';
         $this->pagesize = 20;
         $this->slug = $slug;
+        $this->min_price = 0;
+        $this->max_price = 1000;
+    }
+
+    public function AddToCart(Request $request, $id, $title, $price)
+    {
+        Cart::instance('cart')->add($id, $title, 1, $price)->associate('App\Models\Product');
+        $request->session()->flash('status', 'Product Add to Cart successfully...!!');
+        return redirect()->route('cart');
+    }
+
+    public function addToWishlist(Request $request, $id, $title, $price)
+    {
+        Cart::instance('wishlist')->add($id, $title, 1, $price)->associate('App\Models\Product');
+        $this->emitTo('frontend.wishlist.count-page', 'refresh');
     }
 
     public function render()
@@ -25,19 +44,19 @@ class ByCategoryPage extends Component
         $category = Category::where('slug', $this->slug)->first();
 
         if ($this->sorting == 'name') {
-            $products = Product::where('category_id', $category->id)->orderBy('title', 'asc')->paginate($this->pagesize);
+            $products = Product::whereBetween('regular_price',[$this->min_price,$this->max_price])->where('category_id', $category->id)->orderBy('title', 'asc')->paginate($this->pagesize);
         } elseif ($this->sorting == 'name-desc') {
-            $products = Product::where('category_id', $category->id)->orderBy('title', 'desc')->paginate($this->pagesize);
+            $products = Product::whereBetween('regular_price',[$this->min_price,$this->max_price])->where('category_id', $category->id)->orderBy('title', 'desc')->paginate($this->pagesize);
         } elseif ($this->sorting == 'price') {
-            $products = Product::where('category_id', $category->id)->orderBy('regular_price', 'asc')->paginate($this->pagesize);
+            $products = Product::whereBetween('regular_price',[$this->min_price,$this->max_price])->where('category_id', $category->id)->orderBy('regular_price', 'asc')->paginate($this->pagesize);
         } elseif ($this->sorting == 'price-desc') {
-            $products = Product::where('category_id', $category->id)->orderBy('regular_price', 'desc')->paginate($this->pagesize);
+            $products = Product::whereBetween('regular_price',[$this->min_price,$this->max_price])->where('category_id', $category->id)->orderBy('regular_price', 'desc')->paginate($this->pagesize);
         } elseif ($this->sorting == 'date') {
-            $products = Product::where('category_id', $category->id)->orderBy('created_at', 'asc')->paginate($this->pagesize);
+            $products = Product::whereBetween('regular_price',[$this->min_price,$this->max_price])->where('category_id', $category->id)->orderBy('created_at', 'asc')->paginate($this->pagesize);
         } elseif ($this->sorting == 'date-desc') {
-            $products = Product::where('category_id', $category->id)->orderBy('created_at', 'desc')->paginate($this->pagesize);
+            $products = Product::whereBetween('regular_price',[$this->min_price,$this->max_price])->where('category_id', $category->id)->orderBy('created_at', 'desc')->paginate($this->pagesize);
         } else {
-            $products = Product::where('category_id', $category->id)->paginate($this->pagesize);
+            $products = Product::whereBetween('regular_price',[$this->min_price,$this->max_price])->where('category_id', $category->id)->paginate($this->pagesize);
         }
 
         $popular_products = Product::inRandomOrder()->limit(8)->get();

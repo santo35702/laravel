@@ -35,23 +35,9 @@
                     <!--Price Filter-->
                     <div class="sidebar_widget filterBox filter-widget">
                         <div class="widget-title">
-                            <h2>Price</h2>
+                            <h2>Price <span class="">${{ $min_price }} - ${{ $max_price }}</span></h2>
                         </div>
-                        <form action="#" method="post" class="price-filter">
-                            <div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <p class="no-margin"><input id="amount" type="text"></p>
-                                </div>
-                                <div class="col-6 text-right margin-25px-top">
-                                    <button class="btn btn-secondary btn--small">filter</button>
-                                </div>
-                            </div>
-                        </form>
+                        <div id="price" wire:ignore></div>
                     </div>
                     <!--End Price Filter-->
                     <!--Size Swatches-->
@@ -279,109 +265,118 @@
                     <div class="grid-products grid--view-items">
                         <?php if ($products->count() > 0): ?>
                             <div class="row">
-                                <?php foreach ($products as $key): ?>
-                                    <div class="col-6 col-sm-6 col-md-4 col-lg-3 item grid-view-item--sold-out">
-                                        <!-- start product image -->
-                                        <div class="product-image">
-                                            <!-- start product image -->
-                                            <a href="{{ route('products.details', $key->slug) }}">
-                                                <!-- image -->
-                                                <img class="primary blur-up lazyload" data-src="{{ asset('assets/images/product-images/' . $key->image) }}" src="{{ asset('assets/images/product-images/' . $key->image) }}" alt="{{ $key->title }}" title="{{ $key->title }}">
-                                                <!-- End image -->
-                                                <!-- Hover image -->
-                                                <img class="hover blur-up lazyload" data-src="{{ asset('assets/images/product-images/product-image1-1.jpg') }}" src="{{ asset('assets/images/product-images/product-image1-1.jpg') }}" alt="{{ $key->title }}" title="{{ $key->title }}">
-                                                <!-- End hover image -->
-                                                <!-- product label -->
-                                                <div class="product-labels rectangular">
-                                                    <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
-                                                        <span class="lbl on-sale">Sale</span>
-                                                        <span class="lbl on-sale">-16%</span>
-                                                    <?php endif; ?>
-                                                    <span class="lbl pr-label3">Popular</span>
-                                                    <span class="lbl pr-label2">Hot</span>
-                                                    <span class="lbl pr-label1">new</span>
-                                                </div>
-                                                <span class="sold-out"><span>Sold out</span></span>
-                                                <!-- End product label -->
-                                            </a>
-                                            <!-- end product image -->
+                                <?php
+                                    $witems = Cart::instance('wishlist')->content()->pluck('id');
+                                 ?>
+                                 <?php foreach ($products as $key): ?>
+                                     <div class="col-6 col-sm-6 col-md-4 col-lg-3 item grid-view-item--sold-out">
+                                         <!-- start product image -->
+                                         <div class="product-image">
+                                             <!-- start product image -->
+                                             <a href="{{ route('products.details', $key->slug) }}">
+                                                 <!-- image -->
+                                                 <img class="primary blur-up lazyload" data-src="{{ asset('assets/images/product-images/' . $key->image) }}" src="{{ asset('assets/images/product-images/' . $key->image) }}" alt="{{ $key->title }}" title="{{ $key->title }}">
+                                                 <!-- End image -->
+                                                 <!-- Hover image -->
+                                                 <img class="hover blur-up lazyload" data-src="{{ asset('assets/images/product-images/product-image1-1.jpg') }}" src="{{ asset('assets/images/product-images/product-image1-1.jpg') }}" alt="{{ $key->title }}" title="{{ $key->title }}">
+                                                 <!-- End hover image -->
+                                                 <!-- product label -->
+                                                 <div class="product-labels rectangular">
+                                                     <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
+                                                         <span class="lbl on-sale">Sale</span>
+                                                         <span class="lbl on-sale">-16%</span>
+                                                     <?php endif; ?>
+                                                     <span class="lbl pr-label3">Popular</span>
+                                                     <span class="lbl pr-label2">Hot</span>
+                                                     <span class="lbl pr-label1">new</span>
+                                                 </div>
+                                                 <span class="sold-out"><span>Sold out</span></span>
+                                                 <!-- End product label -->
+                                             </a>
+                                             <!-- end product image -->
 
-                                            <!-- countdown start -->
-                                            <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
-                                            <div class="saleTime desktop" data-countdown="{{ Carbon\Carbon::parse($sale->sale_date)}}"></div>
-                                            <?php endif; ?>
-                                            <!-- countdown end -->
+                                             <!-- countdown start -->
+                                             <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
+                                                 <div class="saleTime desktop" data-countdown="{{ Carbon\Carbon::parse($sale->sale_date) }}"></div>
+                                             <?php endif; ?>
+                                             <!-- countdown end -->
 
-                                            <!-- Start product button -->
-                                            <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
-                                                <a href="#" class="variants add btn btn-addto-cart" wire:click.prevent="AddToCart({{ $key->id }}, '{{ $key->title }}', {{ $key->sale_price }})">Add To Cart</a>
-                                            <?php else: ?>
-                                                <a href="#" class="variants add btn btn-addto-cart" wire:click.prevent="AddToCart({{ $key->id }}, '{{ $key->title }}', {{ $key->regular_price }})">Add To Cart</a>
-                                            <?php endif; ?>
-                                            <div class="button-set">
-                                                <a href="javascript:void(0)" title="Quick View" class="quick-view-popup quick-view" data-toggle="modal" data-target="#content_quickview">
-                                                    <i class="icon anm anm-search-plus-r"></i>
-                                                </a>
-                                                <div class="wishlist-btn">
-                                                    <a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist">
-                                                        <i class="icon anm anm-heart-l"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="compare-btn">
-                                                    <a class="compare add-to-compare" href="compare.html" title="Add to Compare">
-                                                        <i class="icon anm anm-random-r"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <!-- end product button -->
-                                        </div>
-                                        <!-- end product image -->
+                                             <!-- Start product button -->
+                                             <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
+                                                 <a href="#" class="variants add btn btn-addto-cart" wire:click.prevent="AddToCart({{ $key->id }}, '{{ $key->title }}', {{ $key->sale_price }})">Add To Cart</a>
+                                             <?php else: ?>
+                                                 <a href="#" class="variants add btn btn-addto-cart" wire:click.prevent="AddToCart({{ $key->id }}, '{{ $key->title }}', {{ $key->regular_price }})">Add To Cart</a>
+                                             <?php endif; ?>
+                                             <div class="button-set">
+                                                 <a href="javascript:void(0)" title="Quick View" class="quick-view-popup quick-view" data-toggle="modal" data-target="#content_quickview">
+                                                     <i class="icon anm anm-search-plus-r"></i>
+                                                 </a>
+                                                 <div class="wishlist-btn">
+                                                     <?php if ($witems->contains($key->id)): ?>
+                                                         <a class="wishlist add-to-wishlist" href="#" title="Remove from Wishlist">
+                                                             <i class="icon anm anm-heart"></i>
+                                                         </a>
+                                                     <?php else: ?>
+                                                         <a class="wishlist add-to-wishlist" href="#" wire:click.prevent="addToWishlist({{ $key->id }}, '{{ $key->title }}', {{ $key->regular_price }})" title="Add to Wishlist">
+                                                             <i class="icon anm anm-heart-l"></i>
+                                                         </a>
+                                                     <?php endif; ?>
+                                                 </div>
+                                                 <div class="compare-btn">
+                                                     <a class="compare add-to-compare" href="compare.html" title="Add to Compare">
+                                                         <i class="icon anm anm-random-r"></i>
+                                                     </a>
+                                                 </div>
+                                             </div>
+                                             <!-- end product button -->
+                                         </div>
+                                         <!-- end product image -->
 
-                                        <!--start product details -->
-                                        <div class="product-details text-center">
-                                            <!-- product name -->
-                                            <div class="product-name text-capitalize">
-                                                <a href="{{ route('products.details', $key->slug) }}">{{ $key->title }}</a>
-                                            </div>
-                                            <!-- End product name -->
-                                            <!-- product price -->
-                                            <div class="product-price">
-                                                <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
-                                                    <span class="old-price">${{ $key->regular_price }}</span>
-                                                    <span class="price">${{ $key->sale_price }}</span>
-                                                <?php else: ?>
-                                                    <span class="price">${{ $key->regular_price }}</span>
-                                                <?php endif; ?>
-                                            </div>
-                                            <!-- End product price -->
+                                         <!--start product details -->
+                                         <div class="product-details text-center">
+                                             <!-- product name -->
+                                             <div class="product-name text-capitalize">
+                                                 <a href="{{ route('products.details', $key->slug) }}">{{ $key->title }}</a>
+                                             </div>
+                                             <!-- End product name -->
+                                             <!-- product price -->
+                                             <div class="product-price">
+                                                 <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
+                                                     <span class="old-price">${{ $key->regular_price }}</span>
+                                                     <span class="price">${{ $key->sale_price }}</span>
+                                                 <?php else: ?>
+                                                     <span class="price">${{ $key->regular_price }}</span>
+                                                 <?php endif; ?>
+                                             </div>
+                                             <!-- End product price -->
 
-                                            <div class="product-review">
-                                                <i class="font-13 fa fa-star"></i>
-                                                <i class="font-13 fa fa-star"></i>
-                                                <i class="font-13 fa fa-star"></i>
-                                                <i class="font-13 fa fa-star-o"></i>
-                                                <i class="font-13 fa fa-star-o"></i>
-                                            </div>
-                                            <!-- Variant -->
-                                            <ul class="swatches">
-                                                <li class="swatch medium rounded"><img src="{{ asset('assets/images/product-images/variant1.jpg') }}" alt="image" /></li>
-                                                <li class="swatch medium rounded"><img src="{{ asset('assets/images/product-images/variant2.jpg') }}" alt="image" /></li>
-                                                <li class="swatch medium rounded"><img src="{{ asset('assets/images/product-images/variant3.jpg') }}" alt="image" /></li>
-                                                <li class="swatch medium rounded"><img src="{{ asset('assets/images/product-images/variant4.jpg') }}" alt="image" /></li>
-                                                <li class="swatch medium rounded"><img src="{{ asset('assets/images/product-images/variant5.jpg') }}" alt="image" /></li>
-                                            </ul>
-                                            <!-- End Variant -->
-                                        </div>
-                                        <!-- End product details -->
-                                        <!-- countdown start -->
-                                        <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
-                                            <div class="timermobile">
-                                                <div class="saleTime desktop" data-countdown="{{ Carbon\Carbon::parse($sale->sale_date) }}"></div>
-                                            </div>
-                                        <?php endif; ?>
-                                        <!-- countdown end -->
-                                    </div>
-                                <?php endforeach; ?>
+                                             <div class="product-review">
+                                                 <i class="font-13 fa fa-star"></i>
+                                                 <i class="font-13 fa fa-star"></i>
+                                                 <i class="font-13 fa fa-star"></i>
+                                                 <i class="font-13 fa fa-star-o"></i>
+                                                 <i class="font-13 fa fa-star-o"></i>
+                                             </div>
+                                             <!-- Variant -->
+                                             <ul class="swatches">
+                                                 <li class="swatch medium rounded"><img src="{{ asset('assets/images/product-images/variant1.jpg') }}" alt="image" /></li>
+                                                 <li class="swatch medium rounded"><img src="{{ asset('assets/images/product-images/variant2.jpg') }}" alt="image" /></li>
+                                                 <li class="swatch medium rounded"><img src="{{ asset('assets/images/product-images/variant3.jpg') }}" alt="image" /></li>
+                                                 <li class="swatch medium rounded"><img src="{{ asset('assets/images/product-images/variant4.jpg') }}" alt="image" /></li>
+                                                 <li class="swatch medium rounded"><img src="{{ asset('assets/images/product-images/variant5.jpg') }}" alt="image" /></li>
+                                             </ul>
+                                             <!-- End Variant -->
+                                         </div>
+                                         <!-- End product details -->
+                                         <!-- countdown start -->
+                                         <?php if ($key->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now() ): ?>
+                                             <div class="timermobile">
+                                                 <div class="saleTime desktop" data-countdown="{{ Carbon\Carbon::parse($sale->sale_date) }}"></div>
+                                             </div>
+                                         <?php endif; ?>
+                                         <!-- countdown end -->
+                                     </div>
+                                 <?php endforeach; ?>
                             </div>
                         <?php else: ?>
                             <div class="jumbotron d-flex justify-content-between">
@@ -409,3 +404,32 @@
         </div>
     </div>
 </div>
+
+
+@push('script')
+    <script>
+        var slider = document.getElementById('price');
+        noUiSlider.create(slider,{
+            // Handles start at ...
+            start: [0, 1000],
+            // Display colored bars between handles
+            connect: true,
+            // margin: 30,
+            step: 20,
+            range: {
+                'min' : 0,
+                'max' : 1000
+            },
+            pips: {
+                mode: 'steps',
+                stepped: true,
+                density: 10
+            }
+        });
+
+        slider.noUiSlider.on('update', function (value) {
+            @this.set('min_price', value[0]);
+            @this.set('max_price', value[1]);
+        });
+    </script>
+@endpush

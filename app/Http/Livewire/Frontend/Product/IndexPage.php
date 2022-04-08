@@ -35,6 +35,7 @@ class IndexPage extends Component
     public function addToWishlist(Request $request, $id, $title, $price)
     {
         Cart::instance('wishlist')->add($id, $title, 1, $price)->associate('App\Models\Product');
+        $this->emitTo('frontend.wishlist.count-page', 'refresh');
     }
 
     public function render()
