@@ -63,11 +63,9 @@
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" wire:model="slug">
                                         </div>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <label for="short_description" class="input-group-text">Short Description <span class="text-danger">*</span></label>
-                                            </div>
-                                            <textarea class="form-control @error('short_description') is-invalid @enderror" placeholder="Enter Short Description" wire:model="short_description"></textarea>
+                                        <div class="form-group" wire:ignore>
+                                            <label for="short_description">Short Description <span class="text-danger">*</span></label>
+                                            <textarea id="" class="form-control @error('short_description') is-invalid @enderror" name="editor2" placeholder="Enter Short Description" wire:model="short_description"></textarea>
                                             @error('short_description')
                                                 <div id="short_description" class="invalid-feedback">
                                                     {{ $message }}
@@ -129,8 +127,9 @@
                                     </div>
 
                                     <div class="col-6">
-                                        <div class="form-group">
-                                            <textarea class="form-control @error('description') is-invalid @enderror" rows="4" placeholder="Enter Description" wire:model="description"></textarea>
+                                        <div class="form-group" wire:ignore>
+                                            <label for="description">Description <span class="text-danger">*</span></label>
+                                            <textarea id="" class="form-control @error('description') is-invalid @enderror" name="editor1" rows="4" placeholder="Enter Description" wire:model="description"></textarea>
                                             @error('description')
                                                 <div id="description" class="invalid-feedback">
                                                     {{ $message }}
@@ -196,9 +195,7 @@
 
 @push('script')
 <script>
-  $(function () {
-    // Summernote
-    $('#summernote').summernote();
-  })
+    CKEDITOR.replace( 'editor1' );
+    CKEDITOR.replace( 'editor2' );
 </script>
 @endpush

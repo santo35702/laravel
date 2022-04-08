@@ -312,6 +312,10 @@
         <script src="{{ asset('admin/plugins/summernote/summernote-bs4.min.js') }}"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="{{ asset('admin/dist/js/demo.js')}}"></script>
+        <!-- TinyMCE -->
+        <script src="https://cdn.tiny.cloud/1/xtp65i8sttdiby192ub38m3j0uoedye2ongm5vu2d52hrtqu/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+        <!-- CHKEditor -->
+        <script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
 
         @livewireScripts
 

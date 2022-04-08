@@ -61,7 +61,7 @@
                                             <a href="{{ route('admin.categories.edit', $key->id) }}" class="btn btn-info btn-sm mr-1"><i class="far fa-edit"></i></a>
                                             <a href="#" onclick="confirm('Are you sure? You want to delete?') || event.stopImmediatePropagation()" class="btn btn-danger btn-sm" wire:click.prevent="deleteItem('{{ $key->id }}')"><i class="fas fa-trash"></i></a>
                                         </td>
-                                        <td>{{ $key->description }}</td>
+                                        <td>{!! $key->description !!}</td>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>

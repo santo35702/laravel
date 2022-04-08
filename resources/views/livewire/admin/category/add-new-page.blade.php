@@ -63,8 +63,8 @@
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" wire:model="slug">
                                         </div>
-                                        <div class="form-group">
-                                            <textarea class="form-control @error('description') is-invalid @enderror" rows="5" placeholder="Enter Description" wire:model="description"></textarea>
+                                        <div class="form-group" wire:ignore>
+                                            <textarea id="summernote" class="form-control @error('description') is-invalid @enderror" rows="5" placeholder="Enter Description" wire:model="description"></textarea>
                                             @error('description')
                                                 <div id="name" class="invalid-feedback">
                                                     {{ $message }}
@@ -88,9 +88,29 @@
 
 @push('script')
 <script>
-  $(function () {
-    // Summernote
-    $('#summernote').summernote();
-  })
+    $(function () {
+        // Summernote
+        $('#summernote').summernote();
+
+        // TinyMCE
+        tinymce.init({
+            selector: '#tiny',
+            plugins: [
+                'a11ychecker','advlist','advcode','advtable','autolink','checklist','export',
+                'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+                'powerpaste','fullscreen','formatpainter','insertdatetime','media','table','help','wordcount'
+            ],
+            toolbar: 'undo redo | formatpainter casechange styleselect | bold italic backcolor | ' +
+            'alignleft aligncenter alignright alignjustify | ' +
+            'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help',
+            setup: function (editor) {
+                editor.on('Change', function(e){
+                    tinyMCE.triggerSave();
+                    var data = $('#tiny').val();
+                    @this.set('tiny', data);
+                });
+            }
+        });
+    });
 </script>
 @endpush

@@ -221,7 +221,7 @@
             <div class="col-12 col-sm-12 col-md-9 col-lg-9 main-col">
                 <div class="category-description">
                     <h3 class="text-capitalize"><span class="text-info">{{ $category->name }}</span> Description</h3>
-                    <p>{{ $category->description }}</p>
+                    <p>{!! $category->description !!}</p>
                 </div>
                 <hr>
                 <div class="productList">

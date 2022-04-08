@@ -32,6 +32,11 @@ class IndexPage extends Component
         return redirect()->route('cart');
     }
 
+    public function addToWishlist(Request $request, $id, $title, $price)
+    {
+        Cart::instance('wishlist')->add($id, $title, 1, $price)->associate('App\Models\Product');
+    }
+
     public function render()
     {
         if ($this->sorting == 'name') {
