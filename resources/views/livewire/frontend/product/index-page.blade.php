@@ -336,7 +336,7 @@
                                                 </a>
                                                 <div class="wishlist-btn">
                                                     <?php if ($witems->contains($key->id)): ?>
-                                                        <a class="wishlist add-to-wishlist" href="#" title="Remove from Wishlist">
+                                                        <a class="wishlist add-to-wishlist" href="#" title="Remove from Wishlist" wire:click.prevent="removeFromWishlist({{ $key->id }})">
                                                             <i class="icon anm anm-heart"></i>
                                                         </a>
                                                     <?php else: ?>
